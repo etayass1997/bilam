@@ -7,13 +7,15 @@ from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
 from docx.shared import Pt
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, send_from_directory
 from flask_cors import CORS
 
 from rag_engine import RAGEngine
 from text_stats import TOOLS, TextStats, run_tool
 
-app = Flask(__name__)
+FRONTEND_DIR = os.path.join(os.path.dirname(__file__), "..", "frontend")
+
+app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path="")
 CORS(app, origins="*")
 
 rag_engine = RAGEngine()
@@ -72,6 +74,11 @@ def last_user_message(messages):
                 return " ".join(b.get("text", "") for b in content if isinstance(b, dict))
             return content
     return ""
+
+
+@app.route("/", methods=["GET"])
+def index():
+    return send_from_directory(app.static_folder, "index.html")
 
 
 @app.route("/health", methods=["GET"])
