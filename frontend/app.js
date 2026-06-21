@@ -1,5 +1,5 @@
 // עדכן לכתובת ה-Render הסופית של ה-backend לאחר deploy
-const BACKEND_URL = "https://bilam-czk0.onrender.com";
+const BACKEND_URL = "https://bilam-1.onrender.com";
 
 const STORAGE_KEY_API = "bilam_api_key";
 const STORAGE_KEY_HISTORY = "bilam_history";
