@@ -1,4 +1,5 @@
 import io
+import json
 import os
 
 import anthropic
@@ -10,11 +11,14 @@ from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 
 from rag_engine import RAGEngine
+from text_stats import TOOLS, TextStats, run_tool
 
 app = Flask(__name__)
 CORS(app, origins="*")
 
 rag_engine = RAGEngine()
+text_stats = TextStats(rag_engine)
+MAX_TOOL_ROUNDS = 4
 
 SYSTEM_PROMPT = """אתה בלעם — סוכן ידע לפרשת שבוע, מבוסס על טקסט התורה והפרשנים הקלאסיים.
 המשתמשים בך הם בעיקר רבנים ואנשי תורה שמתעניינים בפלפול ובדקויות — לא רק בשליפת ציטוטים. תפקידך להיות חד, בקיא ומפולפל, לא רק "מנוע חיפוש" בתוך המקורות שסופקו.
@@ -23,6 +27,7 @@ SYSTEM_PROMPT = """אתה בלעם — סוכן ידע לפרשת שבוע, מב
 - כל טענה עובדתית על תוכן הפסוק או דברי מפרש מסוים — תתבסס על "מקורות" שסופקו לך כאן, ותצוטט במפורש: (פרק X פסוק Y — שם המפרש), ולפסוקי תורה עצמם: (פרק X פסוק Y — טקסט התורה). אל תייחס ציטוט למקור שלא הובא לך.
 - מותר ורצוי להשתמש בידע תורני כללי שלך — כדי לחשוב, להעיר, להשוות בין מפרשים, להצביע על קשיים, השמטות, סתירות או דיוקי לשון, ולענות על שאלות פלפול שדורשות הבנה כללית של הפרשה ולא רק חיפוש מילולי. כשאתה עושה זאת, הבחן בבירור בין "כך כתוב במקור X" לבין הערה/פלפול עצמאי שלך (למשל: "יש להעיר ש...", "מבחינה פרשנית אפשר לשאול...").
 - אמור "לא מצאתי מידע על כך במאגר" רק כשבאמת אינך יודע את התשובה — לא כתחליף למחשבה. אם אתה יודע את התשובה (גם אם היא לא כתובה במפורש באף אחד מהמקורות שסופקו), ענה אותה, וציין שזו ידיעה כללית ולא ציטוט ממקור.
+- לכל שאלה כמותית על טקסט הפרשה עצמו (כמה פעמים מופיעה מילה/שורש, כמה פסוקים/מילים יש בפרשה וכו') — חובה להפעיל את הכלי המתאים (count_word_in_parasha / get_parasha_stats) ולהתבסס על תוצאתו המדויקת. אל תנחש ואל תסתמך על הערכה.
 - עברית בלבד. תשובה חדה וממוקדת בעיקר הקושי או הפלפול — לא תשובה גנרית.
 
 מקורות שנמצאו לשאלה הנוכחית:
@@ -98,12 +103,31 @@ def chat():
 
     try:
         client = anthropic.Anthropic(api_key=api_key)
-        response = client.messages.create(
-            model="claude-sonnet-4-6",
-            max_tokens=2000,
-            system=system,
-            messages=messages,
-        )
+        conversation = list(messages)
+        response = None
+        for _ in range(MAX_TOOL_ROUNDS):
+            response = client.messages.create(
+                model="claude-sonnet-4-6",
+                max_tokens=2000,
+                system=system,
+                tools=TOOLS,
+                messages=conversation,
+            )
+            if response.stop_reason != "tool_use":
+                break
+
+            conversation.append({"role": "assistant", "content": response.content})
+            tool_results = []
+            for block in response.content:
+                if block.type == "tool_use":
+                    result = run_tool(text_stats, block.name, block.input)
+                    tool_results.append({
+                        "type": "tool_result",
+                        "tool_use_id": block.id,
+                        "content": json.dumps(result, ensure_ascii=False),
+                    })
+            conversation.append({"role": "user", "content": tool_results})
+
         text_blocks = [b.text for b in response.content if hasattr(b, "text")]
         reply = text_blocks[0] if text_blocks else ""
     except anthropic.AuthenticationError:
