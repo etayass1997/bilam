@@ -119,8 +119,10 @@ composer.addEventListener("submit", async (e) => {
   sendBtn.disabled = true;
 
   try {
+    const RECENT_EXCHANGES = 5; // זיכרון שיחה: שולחים למודל רק את 5 חילופי השאלה-תשובה האחרונים
     const messages = history
       .filter((h) => h.role === "user" || h.role === "bot")
+      .slice(-RECENT_EXCHANGES * 2)
       .map((h) => ({ role: h.role === "bot" ? "assistant" : "user", content: h.text }));
 
     const resp = await fetch(`${BACKEND_URL}/chat`, {
