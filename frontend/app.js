@@ -11,23 +11,57 @@ const sendBtn = document.getElementById("send-btn");
 const apiKeyInput = document.getElementById("api-key");
 const saveKeyBtn = document.getElementById("save-key");
 const toggleKeyBtn = document.getElementById("toggle-key");
+const apiKeyForm = document.getElementById("api-key-form");
+const apiKeySavedRow = document.getElementById("api-key-saved-row");
+const editKeyBtn = document.getElementById("edit-key-btn");
+const clearChatBtn = document.getElementById("clear-chat-btn");
 
 let history = JSON.parse(localStorage.getItem(STORAGE_KEY_HISTORY) || "[]");
 
+function showKeySaved() {
+  apiKeyForm.hidden = true;
+  apiKeySavedRow.hidden = false;
+}
+
+function showKeyForm() {
+  apiKeyForm.hidden = false;
+  apiKeySavedRow.hidden = true;
+}
+
 function init() {
   const savedKey = localStorage.getItem(STORAGE_KEY_API);
-  if (savedKey) apiKeyInput.value = savedKey;
+  if (savedKey) {
+    apiKeyInput.value = savedKey;
+    showKeySaved();
+  } else {
+    showKeyForm();
+  }
   history.forEach((entry) => renderMessage(entry.role, entry.text, entry.sources, entry.question));
 }
 
 saveKeyBtn.addEventListener("click", () => {
   localStorage.setItem(STORAGE_KEY_API, apiKeyInput.value.trim());
   saveKeyBtn.textContent = "נשמר ✓";
-  setTimeout(() => (saveKeyBtn.textContent = "שמור"), 1500);
+  setTimeout(() => {
+    saveKeyBtn.textContent = "שמור";
+    showKeySaved();
+  }, 1500);
+});
+
+editKeyBtn.addEventListener("click", () => {
+  showKeyForm();
 });
 
 toggleKeyBtn.addEventListener("click", () => {
   apiKeyInput.type = apiKeyInput.type === "password" ? "text" : "password";
+});
+
+clearChatBtn.addEventListener("click", () => {
+  if (!history.length) return;
+  if (!confirm("למחוק את כל השיחה? הפעולה לא ניתנת לשחזור.")) return;
+  history = [];
+  localStorage.removeItem(STORAGE_KEY_HISTORY);
+  chatBox.innerHTML = "";
 });
 
 function renderMessage(role, text, sources, question) {

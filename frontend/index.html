@@ -22,15 +22,25 @@
     <p class="subtitle">סוכן ידע לפרשת שבוע — טקסט התורה ופרשנים קלאסיים, פסוק ומקור בכל תשובה</p>
   </header>
 
-  <section class="api-key-box">
-    <label for="api-key">מפתח Anthropic API</label>
-    <div class="api-key-row">
-      <input type="password" id="api-key" placeholder="sk-ant-...">
-      <button type="button" id="toggle-key" class="icon-btn" aria-label="הצג/הסתר מפתח">👁</button>
-      <button type="button" id="save-key" class="secondary-btn">שמור</button>
+  <section class="api-key-box" id="api-key-box">
+    <div class="api-key-saved-row" id="api-key-saved-row" hidden>
+      <span>מפתח API שמור ✓</span>
+      <button type="button" id="edit-key-btn" class="icon-btn">שינוי מפתח</button>
     </div>
-    <p class="hint">המפתח שלך נשמר רק בדפדפן שלך (localStorage) ונשלח לשרת רק בזמן שאלה — הוא לא נשמר בשום שרת.</p>
+    <div id="api-key-form">
+      <label for="api-key">מפתח Anthropic API</label>
+      <div class="api-key-row">
+        <input type="password" id="api-key" placeholder="sk-ant-...">
+        <button type="button" id="toggle-key" class="icon-btn" aria-label="הצג/הסתר מפתח">👁</button>
+        <button type="button" id="save-key" class="secondary-btn">שמור</button>
+      </div>
+      <p class="hint">המפתח שלך נשמר רק בדפדפן שלך (localStorage) ונשלח לשרת רק בזמן שאלה — הוא לא נשמר בשום שרת.</p>
+    </div>
   </section>
+
+  <div class="chat-toolbar">
+    <button type="button" id="clear-chat-btn" class="icon-btn">🗑 מחיקת שיחה</button>
+  </div>
 
   <section class="chat-box" id="chat-box"></section>
 

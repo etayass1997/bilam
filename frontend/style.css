@@ -103,6 +103,26 @@ body {
   margin: 8px 0 0;
 }
 
+.api-key-saved-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--gold-light);
+}
+
+.chat-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.chat-toolbar .icon-btn {
+  font-size: 0.82rem;
+  padding: 6px 12px;
+}
+
 .chat-box {
   flex: 1;
   display: flex;
