@@ -37,6 +37,10 @@ function init() {
     showKeyForm();
   }
   history.forEach((entry) => renderMessage(entry.role, entry.text, entry.sources, entry.question));
+
+  // Render free tier נרדם אחרי חוסר פעילות - מתחילים להעיר אותו כבר בטעינת הדף,
+  // כדי שעד שהמשתמש ישלח שאלה השרת כבר יהיה (כמעט) ער.
+  fetch(`${BACKEND_URL}/health`).catch(() => {});
 }
 
 saveKeyBtn.addEventListener("click", () => {
@@ -105,17 +109,56 @@ function saveHistory() {
   localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(history));
 }
 
+function showStatus(text) {
+  let el = document.getElementById("status-msg");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "status-msg";
+    el.className = "msg status";
+    chatBox.appendChild(el);
+  }
+  el.textContent = text;
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function clearStatus() {
+  const el = document.getElementById("status-msg");
+  if (el) el.remove();
+}
+
+// Render free tier יכול "להירדם" אחרי חוסר פעילות - ניסיון ראשון אחרי שינה
+// נכשל לעיתים (תשובה לא תקינה/שגיאת רשת) בזמן שהשרת מתעורר. מנסים שוב אוטומטית
+// במקום להציג "שגיאת תקשורת" מיידית.
+async function fetchWithWakeupRetry(url, options, retries = 2) {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const resp = await fetch(url, options);
+      if (!resp.ok && resp.status >= 502 && resp.status <= 504 && attempt < retries) {
+        showStatus("השרת מתעורר משינה, מנסה שוב...");
+        await new Promise((r) => setTimeout(r, 5000));
+        continue;
+      }
+      return resp;
+    } catch (e) {
+      if (attempt === retries) throw e;
+      showStatus("השרת מתעורר משינה, מנסה שוב...");
+      await new Promise((r) => setTimeout(r, 5000));
+    }
+  }
+}
+
 function getApiKey() {
   return localStorage.getItem(STORAGE_KEY_API) || apiKeyInput.value.trim();
 }
 
 async function downloadDocx(question) {
   try {
-    const resp = await fetch(`${BACKEND_URL}/generate-docx`, {
+    const resp = await fetchWithWakeupRetry(`${BACKEND_URL}/generate-docx`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages: [{ role: "user", content: question }] }),
     });
+    clearStatus();
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
       alert(err.error || "שגיאה ביצירת המסמך");
@@ -131,6 +174,7 @@ async function downloadDocx(question) {
     a.remove();
     URL.revokeObjectURL(url);
   } catch (e) {
+    clearStatus();
     alert("שגיאת תקשורת עם השרת");
   }
 }
@@ -159,11 +203,12 @@ composer.addEventListener("submit", async (e) => {
       .slice(-RECENT_EXCHANGES * 2)
       .map((h) => ({ role: h.role === "bot" ? "assistant" : "user", content: h.text }));
 
-    const resp = await fetch(`${BACKEND_URL}/chat`, {
+    const resp = await fetchWithWakeupRetry(`${BACKEND_URL}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages, api_key: apiKey }),
     });
+    clearStatus();
     const data = await resp.json();
 
     if (!resp.ok) {
@@ -175,7 +220,8 @@ composer.addEventListener("submit", async (e) => {
     renderMessage("bot", data.reply, data.sources, question);
     saveHistory();
   } catch (e) {
-    renderMessage("error", "שגיאת תקשורת עם השרת");
+    clearStatus();
+    renderMessage("error", "שגיאת תקשורת עם השרת — נסו שוב בעוד כמה שניות (השרת עשוי להיות בתהליך התעוררות).");
   } finally {
     sendBtn.disabled = false;
   }

@@ -159,6 +159,15 @@ body {
   color: #f4d8d8;
 }
 
+.msg.status {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px dashed #4a4128;
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 0.88rem;
+}
+
 .sources {
   margin-top: 10px;
   padding-top: 10px;
