@@ -1,0 +1,30 @@
+{
+  "perasha": "פרשת פינחס",
+  "chapter": 29,
+  "verse": 16,
+  "verse_text_hebrew": "וּשְׂעִיר־עִזִּ֥ים אֶחָ֖ד חַטָּ֑את מִלְּבַד֙ עֹלַ֣ת הַתָּמִ֔יד מִנְחָתָ֖הּ וְנִסְכָּֽהּ׃ {ס}",
+  "ref_he": "במדבר כ״ט:ט״ז",
+  "source_url": "https://www.sefaria.org/Numbers.29.16",
+  "commentaries": [
+    {
+      "commentator_name": "צפנת פענח",
+      "commentary_text": "ושעיר עזים אחד חטאת וגו׳.כאן בג׳ מקומות נקט לשון עזים, רמז למה דמבואר גבי ברית בין הבתרים עז משולש, עיין בתוספתא הובא בר״ש פ״א דפרה ע״ש בזה.",
+      "source_url": "https://www.sefaria.org/Tzafnat_Pa'neach_on_Torah,_Numbers_29:16:1"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וּשְׂעִיר עִזִּים אֶחָד חַטָּאת, מִלְּבַד עֹלַת הַתָּמִיד, מִנְחָתָהּ וְנִסְכָּהּ.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Numbers_29:16"
+    },
+    {
+      "commentator_name": "חזקוני",
+      "commentary_text": "ונסכה קאי אנסכי יין דחג ואנסכי מנחה דעולת התמיד.",
+      "source_url": "https://www.sefaria.org/Chizkuni,_Numbers_29:16:1"
+    },
+    {
+      "commentator_name": "מנחת שי",
+      "commentary_text": "חטאת. הטי\"ת דגושה:",
+      "source_url": "https://www.sefaria.org/Minchat_Shai_on_Torah,_Numbers_29:16:1"
+    }
+  ]
+}

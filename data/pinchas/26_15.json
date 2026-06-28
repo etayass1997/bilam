@@ -1,0 +1,30 @@
+{
+  "perasha": "פרשת פינחס",
+  "chapter": 26,
+  "verse": 15,
+  "verse_text_hebrew": "בְּנֵ֣י גָד֮ לְמִשְׁפְּחֹתָם֒ לִצְפ֗וֹן מִשְׁפַּ֙חַת֙ הַצְּפוֹנִ֔י לְחַגִּ֕י מִשְׁפַּ֖חַת הַֽחַגִּ֑י לְשׁוּנִ֕י מִשְׁפַּ֖חַת הַשּׁוּנִֽי׃",
+  "ref_he": "במדבר כ״ו:ט״ו",
+  "source_url": "https://www.sefaria.org/Numbers.26.15",
+  "commentaries": [
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "בְּנֵי גָד לְמִשְׁפְּחֹתָם: לִצְפוֹן – מִשְׁפַּחַת הַצְּפוֹנִי, לְחַגִּי – מִשְׁפַּחַת הַחַגִּי, לְשׁוּנִי – מִשְׁפַּחַת הַשּׁוּנִי,",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Numbers_26:15"
+    },
+    {
+      "commentator_name": "קיצור בעל הטורים ",
+      "commentary_text": "הצפוני ב' במסרה הכא ואידך ואת הצפוני ארחיק מעליכם זהו שאליהו בא מבני גד שבד\"ה [מ\"א] י\"ז מייחס אותו עם בני גד אז והצפוני ארחיק מעליכם שיתבטל יצר הרע:",
+      "source_url": "https://www.sefaria.org/Kitzur_Ba'al_HaTurim_on_Numbers_26:15:1"
+    },
+    {
+      "commentator_name": "קיצור בעל הטורים ",
+      "commentary_text": "לצפון הוא צפיון וכתיב צפון על שם שמשה שקבל עשרת הדברות צפון בחלקו:",
+      "source_url": "https://www.sefaria.org/Kitzur_Ba'al_HaTurim_on_Numbers_26:15:2"
+    },
+    {
+      "commentator_name": "חזקוני",
+      "commentary_text": "לצפון הוא צפון.",
+      "source_url": "https://www.sefaria.org/Chizkuni,_Numbers_26:15:1"
+    }
+  ]
+}

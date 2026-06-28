@@ -1,0 +1,25 @@
+{
+  "perasha": "פרשת פינחס",
+  "chapter": 26,
+  "verse": 6,
+  "verse_text_hebrew": "לְחֶצְרֹ֕ן מִשְׁפַּ֖חַת הַֽחֶצְרוֹנִ֑י לְכַרְמִ֕י מִשְׁפַּ֖חַת הַכַּרְמִֽי׃",
+  "ref_he": "במדבר כ״ו:ו׳",
+  "source_url": "https://www.sefaria.org/Numbers.26.6",
+  "commentaries": [
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "לְחֶצְרֹן – מִשְׁפַּחַת הַחֶצְרוֹנִי, לְכַרְמִי – מִשְׁפַּחַת הַכַּרְמִי.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Numbers_26:6"
+    },
+    {
+      "commentator_name": "קיצור בעל הטורים ",
+      "commentary_text": "לכרמי שנים הכא ואידך מה לעשות עור לכרמי מי הוא כרמי זה שנאמר בו לכרמי משפחת הכרמי כדכתיב כי כרם ה' צבאות בית ישראל:",
+      "source_url": "https://www.sefaria.org/Kitzur_Ba'al_HaTurim_on_Numbers_26:6:1"
+    },
+    {
+      "commentator_name": "מנחת שי",
+      "commentary_text": "לחצרן משפחת החצרוני. במסורת פרשת ויגש נמסר חצרן כל אורייתא חסר בר מן חד חצרוני קדמאה דוידבר ע\"כ. וכן כתב הרמ\"ה ז\"ל החצרוני לכרמי דין מלא וא\"ו לחצרן משפחת החצרני לחמול דין חסר וא\"ו כתיב:",
+      "source_url": "https://www.sefaria.org/Minchat_Shai_on_Torah,_Numbers_26:6:1"
+    }
+  ]
+}

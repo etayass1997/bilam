@@ -1,0 +1,25 @@
+{
+  "perasha": "פרשת פינחס",
+  "chapter": 29,
+  "verse": 19,
+  "verse_text_hebrew": "וּשְׂעִיר־עִזִּ֥ים אֶחָ֖ד חַטָּ֑את מִלְּבַד֙ עֹלַ֣ת הַתָּמִ֔יד וּמִנְחָתָ֖הּ וְנִסְכֵּיהֶֽם׃ {ס}",
+  "ref_he": "במדבר כ״ט:י״ט",
+  "source_url": "https://www.sefaria.org/Numbers.29.19",
+  "commentaries": [
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וּשְׂעִיר עִזִּים אֶחָד – חַטָּאת, מִלְּבַד עֹלַת הַתָּמִיד וּמִנְחָתָהּ וְנִסְכֵּיהֶם.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Numbers_29:19"
+    },
+    {
+      "commentator_name": "בכור שור",
+      "commentary_text": "ומנחתם. אשני תמידים קאי. ושני כאן מפני המדרש של מ\"ם יו\"ד מ\"ם:",
+      "source_url": "https://www.sefaria.org/Bekhor_Shor,_Numbers_29:19:1"
+    },
+    {
+      "commentator_name": "חזקוני",
+      "commentary_text": "ונסכיהם כל לשון נסך דשאר ימות החג קאי אנסכי יין ואנסכי מנחה ולפי שקרבנות החג חלוקים הזכירו דבר יום ביומו מה שאין כן בפסח.",
+      "source_url": "https://www.sefaria.org/Chizkuni,_Numbers_29:19:1"
+    }
+  ]
+}
