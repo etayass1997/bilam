@@ -114,8 +114,9 @@ def chat():
         response = None
         for _ in range(MAX_TOOL_ROUNDS):
             response = client.messages.create(
-                model="claude-sonnet-4-6",
-                max_tokens=2000,
+                model="claude-sonnet-5",
+                max_tokens=2600,
+                thinking={"type": "disabled"},
                 system=system,
                 tools=TOOLS,
                 messages=conversation,
@@ -227,5 +228,5 @@ def generate_docx():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5005))
+    port = int(os.environ.get("PORT", 5007))
     app.run(host="0.0.0.0", port=port)

@@ -32,10 +32,10 @@ python ingest.py --parasha-dir ../data/<slug>
 cd backend
 pip install -r requirements.txt
 python ingest.py --parasha-dir ../data/balak   # פעם אחת, אם kb/kb_data.json לא קיים
-python app.py                                    # רץ על http://localhost:5005
+python app.py                                    # רץ על http://localhost:5007
 ```
 
-פתחו את `http://localhost:5005` בדפדפן (`BACKEND_URL` ב-`frontend/app.js` ריק בכוונה — ה-frontend מוגש מאותו שרת), הזינו מפתח Anthropic API משלכם, ושאלו שאלה.
+פתחו את `http://localhost:5007` בדפדפן (`BACKEND_URL` ב-`frontend/app.js` ריק בכוונה — ה-frontend מוגש מאותו שרת), הזינו מפתח Anthropic API משלכם, ושאלו שאלה.
 
 ## Deployment
 
