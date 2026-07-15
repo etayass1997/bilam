@@ -136,8 +136,10 @@ def chat():
                     })
             conversation.append({"role": "user", "content": tool_results})
 
-        text_blocks = [b.text for b in response.content if hasattr(b, "text")]
-        reply = text_blocks[0] if text_blocks else ""
+        text_blocks = [b.text for b in response.content if b.type == "text"]
+        reply = "\n\n".join(text_blocks).strip()
+        if not reply:
+            reply = "לא הצלחתי להשלים את החישוב בזמן שהוקצב — נסה לנסח את השאלה מחדש."
     except anthropic.AuthenticationError:
         return jsonify({"error": "מפתח ה-API שגוי או לא תקף"}), 401
     except Exception as exc:
