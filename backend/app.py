@@ -26,7 +26,7 @@ SYSTEM_PROMPT = """אתה בלעם — סוכן ידע לפרשת שבוע, מב
 המשתמשים בך הם בעיקר רבנים ואנשי תורה שמתעניינים בפלפול ובדקויות — לא רק בשליפת ציטוטים. תפקידך להיות חד, בקיא ומפולפל, לא רק "מנוע חיפוש" בתוך המקורות שסופקו.
 
 חוקי יסוד:
-- כל טענה עובדתית על תוכן הפסוק או דברי מפרש מסוים — תתבסס על "מקורות" שסופקו לך כאן, ותצוטט במפורש: (פרק X פסוק Y — שם המפרש), ולפסוקי תורה עצמם: (פרק X פסוק Y — טקסט התורה). אל תייחס ציטוט למקור שלא הובא לך.
+- כל טענה עובדתית על תוכן הפסוק או דברי מפרש מסוים — תתבסס על "מקורות" שסופקו לך כאן ותצוטט במפורש. בכל מראה מקום חובה לכתוב את שם הפרשה, ואת מספרי הפרק והפסוק באותיות עבריות בלבד, בדיוק בסגנון התוויות שבמקורות: (פרשת בלק, פרק כ״ב, פסוק ג׳ — רש״י). לעולם אל תכתוב מספרי פרקים או פסוקים בספרות, ואל תשמיט את שם הפרשה. לפסוקי תורה עצמם כתוב "טקסט התורה" במקום שם מפרש. אל תייחס ציטוט למקור שלא הובא לך.
 - מותר ורצוי להשתמש בידע תורני כללי שלך — כדי לחשוב, להעיר, להשוות בין מפרשים, להצביע על קשיים, השמטות, סתירות או דיוקי לשון, ולענות על שאלות פלפול שדורשות הבנה כללית של הפרשה ולא רק חיפוש מילולי. כשאתה עושה זאת, הבחן בבירור בין "כך כתוב במקור X" לבין הערה/פלפול עצמאי שלך (למשל: "יש להעיר ש...", "מבחינה פרשנית אפשר לשאול...").
 - אמור "לא מצאתי מידע על כך במאגר" רק כשבאמת אינך יודע את התשובה — לא כתחליף למחשבה. אם אתה יודע את התשובה (גם אם היא לא כתובה במפורש באף אחד מהמקורות שסופקו), ענה אותה, וציין שזו ידיעה כללית ולא ציטוט ממקור.
 - לכל שאלה כמותית על טקסט הפרשה עצמו (כמה פעמים מופיעה מילה/שורש, כמה פסוקים/מילים יש בפרשה וכו') — חובה להפעיל את הכלי המתאים (count_word_in_parasha / get_parasha_stats) ולהתבסס על תוצאתו המדויקת. אל תנחש ואל תסתמך על הערכה.
@@ -36,13 +36,59 @@ SYSTEM_PROMPT = """אתה בלעם — סוכן ידע לפרשת שבוע, מב
 {context}"""
 
 
-def _format_source_label(meta):
+def _hebrew_number(value):
+    """Format a positive integer as conventional Hebrew numerals."""
+    try:
+        number = int(value)
+    except (TypeError, ValueError):
+        return str(value or "")
+
+    if number <= 0 or number >= 1000:
+        return str(number)
+
+    letters = []
+    for amount, letter in (
+        (400, "ת"), (300, "ש"), (200, "ר"), (100, "ק"),
+        (90, "צ"), (80, "פ"), (70, "ע"), (60, "ס"), (50, "נ"),
+        (40, "מ"), (30, "ל"), (20, "כ"),
+    ):
+        while number >= amount:
+            letters.append(letter)
+            number -= amount
+
+    # The traditional forms avoid spelling the Divine name for 15 and 16.
+    if number == 15:
+        letters.extend(("ט", "ו"))
+        number = 0
+    elif number == 16:
+        letters.extend(("ט", "ז"))
+        number = 0
+
+    for amount, letter in (
+        (10, "י"), (9, "ט"), (8, "ח"), (7, "ז"), (6, "ו"),
+        (5, "ה"), (4, "ד"), (3, "ג"), (2, "ב"), (1, "א"),
+    ):
+        while number >= amount:
+            letters.append(letter)
+            number -= amount
+
+    numeral = "".join(letters)
+    if len(numeral) == 1:
+        return f"{numeral}׳"
+    return f"{numeral[:-1]}״{numeral[-1]}"
+
+
+def _format_source_label(meta, include_source=True):
+    parasha = meta.get("parasha") or "פרשה לא ידועה"
+    if not parasha.startswith("פרשת "):
+        parasha = f"פרשת {parasha}"
     chapter = meta.get("chapter")
     verse = meta.get("verse")
     commentator = meta.get("commentator_name")
-    if commentator:
-        return f"פרק {chapter} פסוק {verse} — {commentator}"
-    return f"פרק {chapter} פסוק {verse} — טקסט התורה"
+    label = f"{parasha}, פרק {_hebrew_number(chapter)}, פסוק {_hebrew_number(verse)}"
+    if not include_source:
+        return label
+    return f"{label} — {commentator or 'טקסט התורה'}"
 
 
 def retrieve_context(query, n=6):
@@ -56,8 +102,10 @@ def retrieve_context(query, n=6):
         label = _format_source_label(meta)
         context_lines.append(f"[{label}]\n{text}")
         sources.append({
+            "parasha": meta.get("parasha"),
             "chapter": meta.get("chapter"),
             "verse": meta.get("verse"),
+            "source_label": label,
             "ref_he": meta.get("ref_he"),
             "commentator_name": meta.get("commentator_name"),
             "source_type": meta.get("source_type"),
@@ -202,10 +250,10 @@ def generate_docx():
 
     groups = {}
     for text, meta in zip(documents, metadatas):
-        key = (meta.get("chapter"), meta.get("verse"))
+        key = (meta.get("parasha"), meta.get("chapter"), meta.get("verse"))
         if key not in groups:
             groups[key] = {
-                "ref_he": meta.get("ref_he"),
+                "ref_he": _format_source_label(meta, include_source=False),
                 "verse_text_hebrew": meta.get("verse_text_hebrew"),
                 "commentaries": [],
             }

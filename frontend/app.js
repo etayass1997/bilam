@@ -82,8 +82,13 @@ function renderMessage(role, text, sources, question) {
     const ul = document.createElement("ul");
     sources.forEach((s) => {
       const li = document.createElement("li");
-      const refLabel = s.ref_he || `פרק ${s.chapter} פסוק ${s.verse}`;
-      li.textContent = s.commentator_name ? `${refLabel} — ${s.commentator_name}` : `${refLabel} — טקסט התורה`;
+      if (s.source_label) {
+        li.textContent = s.source_label;
+      } else {
+        // תאימות להודעות ישנות שנשמרו בדפדפן לפני הוספת התווית המלאה.
+        const refLabel = s.ref_he || `פרק ${s.chapter} פסוק ${s.verse}`;
+        li.textContent = s.commentator_name ? `${refLabel} — ${s.commentator_name}` : `${refLabel} — טקסט התורה`;
+      }
       ul.appendChild(li);
     });
     sourcesDiv.appendChild(ul);
