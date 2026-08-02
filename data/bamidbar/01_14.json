@@ -1,0 +1,30 @@
+{
+  "perasha": "פרשת במדבר",
+  "chapter": 1,
+  "verse": 14,
+  "verse_text_hebrew": "לְגָ֕ד אֶלְיָסָ֖ף בֶּן־דְּעוּאֵֽל׃",
+  "ref_he": "במדבר א׳:14",
+  "source_url": "https://www.sefaria.org/Numbers.1.14",
+  "commentaries": [
+    {
+      "commentator_name": "שד\"ל",
+      "commentary_text": "דעואל: דל\"ת גם להלן י' כ', לא כן ב' י\"ד שהוא ברי\"ש, ובחומש שומרוני כלם דל\"ת, ובתרגום יוני כלם ברי\"ש, ולדעתי עיקר שמו היה דרעואל, כלו' זרוע האל, ולפעמים השמיטו ממנו הדל\"ת ואמרו רעואל, ולפעמים השמיטו הרי\"ש ואמרו דעואל; וכן עשו בשם העיר מנף (Memphis) שאמרו לפעמים מף, ולפעמים נ, וכן מן דרדנים אמרו לפעמים דדנים ולפעמים רדנים.",
+      "source_url": "https://www.sefaria.org/Shadal_on_Numbers_1:14:1"
+    },
+    {
+      "commentator_name": "פענח רזא",
+      "commentary_text": "לגד אליסף שהוסיף להם א\"ל ממון על ממונם, מכיון שידע\"ו א\"ל וקיימו מצותיו לבא לעזרת אחיהם:",
+      "source_url": "https://www.sefaria.org/Paaneach_Raza,_Bamidbar_15"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "לְגָד – אֶלְיָסָף בֶּן דְּעוּאֵל.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Numbers_1:14"
+    },
+    {
+      "commentator_name": "מנחת שי",
+      "commentary_text": "לגד אליסף. בחומש קדמון כ\"י כתיב אליאסף באל\"ף אחר היו\"ד ונכתב בצדו בס' זקן אליאסף. ובס' ר\"מ ובס' ר\"נ אליסף ע\"כ. ובכל ספרים שלנו כתוב אליסף בלא אל\"ף ולא שמענו מימינו שום חולק בדבר:",
+      "source_url": "https://www.sefaria.org/Minchat_Shai_on_Torah,_Numbers_1:14:1"
+    }
+  ]
+}

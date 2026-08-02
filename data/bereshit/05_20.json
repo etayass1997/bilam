@@ -1,0 +1,20 @@
+{
+  "perasha": "פרשת בראשית",
+  "chapter": 5,
+  "verse": 20,
+  "verse_text_hebrew": "וַיִּֽהְיוּ֙ כׇּל־יְמֵי־יֶ֔רֶד שְׁתַּ֤יִם וְשִׁשִּׁים֙ שָׁנָ֔ה וּתְשַׁ֥ע מֵא֖וֹת שָׁנָ֑ה וַיָּמֹֽת׃ {ס}",
+  "ref_he": "בראשית ה׳:20",
+  "source_url": "https://www.sefaria.org/Genesis.5.20",
+  "commentaries": [
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וַיִּהְיוּ כָּל יְמֵי יֶרֶד שְׁתַּיִם וְשִׁשִּׁים שָׁנָה וּתְשַׁע מֵאוֹת שָׁנָה, וַיָּמֹת.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Genesis_5:20"
+    },
+    {
+      "commentator_name": "קאסוטו",
+      "commentary_text": "שתים וששים שנה ותשע מאות שנה. 60+60+60 +6+6 יחידות של 60 חודש, פחות אחת, ובתוספת של שבע שנים.",
+      "source_url": "https://www.sefaria.org/Cassuto_on_Genesis,_From_Adam_to_Noah_5:20:1"
+    }
+  ]
+}

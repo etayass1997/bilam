@@ -1,0 +1,30 @@
+{
+  "perasha": "פרשת במדבר",
+  "chapter": 1,
+  "verse": 6,
+  "verse_text_hebrew": "לְשִׁמְע֕וֹן שְׁלֻמִיאֵ֖ל בֶּן־צוּרִֽישַׁדָּֽי׃",
+  "ref_he": "במדבר א׳:6",
+  "source_url": "https://www.sefaria.org/Numbers.1.6",
+  "commentaries": [
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "לְשִׁמְעוֹן – שְׁלֻמִיאֵל בֶּן צוּרִישַׁדָּי.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Numbers_1:6"
+    },
+    {
+      "commentator_name": "חזקוני",
+      "commentary_text": "שלומיאל בן צורישדי כך שמו והוא זמרי בן סלוא והוא שאול בן הכנענית.",
+      "source_url": "https://www.sefaria.org/Chizkuni,_Numbers_1:6:1"
+    },
+    {
+      "commentator_name": "מנחת שי",
+      "commentary_text": "שלמיאל. אין בלמ\"ד מאריך וחדא מלה כתיב ומלא יו\"ד וכל אורייתא דכותא הרמ\"ה ז\"ל:",
+      "source_url": "https://www.sefaria.org/Minchat_Shai_on_Torah,_Numbers_1:6:1"
+    },
+    {
+      "commentator_name": "מנחת שי",
+      "commentary_text": "צורישדי חדא מלה כתיב ומלא דמלא מלא וא\"ו ויו\"ד וכל אורייתא דכותא הרמ\"ה ז\"ל:",
+      "source_url": "https://www.sefaria.org/Minchat_Shai_on_Torah,_Numbers_1:6:2"
+    }
+  ]
+}

@@ -24,6 +24,22 @@ import requests
 API_BASE = "https://www.sefaria.org/api"
 USER_AGENT = "bilam-agent-fetcher/1.0 (+https://github.com/etayass1997/bilam-agent; one-time KB build script)"
 REQUEST_DELAY_SECONDS = 0.6
+MAX_RETRIES = 5
+
+# The 54 distinct weekly portions. Combined readings (e.g. Vayakhel-Pekudei)
+# are deliberately not listed: their component portions already cover the same
+# verses and keeping only distinct portions prevents duplicate Torah documents.
+ALL_PARASHOT = [
+    "Bereshit", "Noach", "Lech Lecha", "Vayera", "Chayei Sara", "Toldot",
+    "Vayetzei", "Vayishlach", "Vayeshev", "Miketz", "Vayigash", "Vayechi",
+    "Shemot", "Vaera", "Bo", "Beshalach", "Yitro", "Mishpatim", "Terumah",
+    "Tetzaveh", "Ki Tisa", "Vayakhel", "Pekudei", "Vayikra", "Tzav",
+    "Shmini", "Tazria", "Metzora", "Achrei Mot", "Kedoshim", "Emor",
+    "Behar", "Bechukotai", "Bamidbar", "Nasso", "Beha'alotcha", "Sh'lach",
+    "Korach", "Chukat", "Balak", "Pinchas", "Matot", "Masei", "Devarim",
+    "Vaetchanan", "Eikev", "Re'eh", "Shoftim", "Ki Teitzei", "Ki Tavo",
+    "Nitzavim", "Vayelech", "Ha'Azinu", "V'Zot HaBerachah",
+]
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger("fetch_sefaria")
@@ -33,10 +49,18 @@ session.headers.update({"User-Agent": USER_AGENT})
 
 
 def _get(url, params=None):
-    resp = session.get(url, params=params, timeout=20)
-    resp.raise_for_status()
-    time.sleep(REQUEST_DELAY_SECONDS)
-    return resp.json()
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            resp = session.get(url, params=params, timeout=60)
+            resp.raise_for_status()
+            time.sleep(REQUEST_DELAY_SECONDS)
+            return resp.json()
+        except requests.RequestException:
+            if attempt == MAX_RETRIES:
+                raise
+            delay = min(2 ** attempt, 30)
+            log.warning("בקשה נכשלה (ניסיון %d/%d); ניסיון חוזר בעוד %d שניות", attempt, MAX_RETRIES, delay)
+            time.sleep(delay)
 
 
 _TAG_RE = re.compile(r"<[^>]+>")
@@ -84,14 +108,19 @@ def resolve_parasha_he_title(parasha_name):
 def resolve_parasha_range(parasha_name):
     """שם פרשה (אנגלית/עברית) -> (book, start_chapter, start_verse, end_chapter, end_verse, he_title)."""
     data = _get(f"{API_BASE}/name/{parasha_name}")
-    ref = data.get("ref")
-    if not ref:
-        raise ValueError(f"לא נמצא טווח פסוקים לפרשה '{parasha_name}' (אין שדה 'ref' בתשובת ה-API)")
+    ref = data.get("ref", "")
 
     he_title = resolve_parasha_he_title(parasha_name)
 
     # ref tref ref כללי, למשל: "Numbers 22:2-25:9"
     match = re.match(r"^([1-3]?\s?[A-Za-z]+)\s+(\d+):(\d+)-(?:(\d+):)?(\d+)$", ref)
+    # Names shared by a biblical book and its first portion (Bereshit,
+    # Shemot, Vayikra, Bamidbar, Devarim) resolve to the book. Asking for
+    # "Parashat ..." disambiguates them in Sefaria's name resolver.
+    if not match:
+        data = _get(f"{API_BASE}/name/Parashat {parasha_name}")
+        ref = data.get("ref", "")
+        match = re.match(r"^([1-3]?\s?[A-Za-z]+)\s+(\d+):(\d+)-(?:(\d+):)?(\d+)$", ref)
     if not match:
         raise ValueError(f"לא הצלחתי לפענח טווח פסוקים מהמחרוזת: '{ref}'")
 
@@ -142,19 +171,13 @@ def build_commentary_list(link_entries):
     return commentaries
 
 
-def fetch_verse(book, chapter, verse):
-    tref = f"{book}.{chapter}.{verse}"
-    data = _get(f"{API_BASE}/texts/{tref}", params={"context": 0, "commentary": 0})
-    verse_text_hebrew = _flatten_text(data.get("he"))
-    ref_he = data.get("heRef", "")
-    return verse_text_hebrew, ref_he
-
-
-def chapter_verse_count(book, chapter):
-    """מספר הפסוקים בפרק, ע''י שליפת הפרק כולו פעם אחת (לא מבוסס על קודי שגיאה)."""
+def fetch_chapter(book, chapter):
+    """Fetch a chapter once and return its Hebrew verses (one request, not one per verse)."""
     data = _get(f"{API_BASE}/texts/{book}.{chapter}", params={"context": 0, "commentary": 0})
     he = data.get("he") or []
-    return len(he)
+    if not isinstance(he, list):
+        raise ValueError(f"תשובת טקסט לא צפויה עבור {book}.{chapter}")
+    return he, data.get("heRef", "")
 
 
 def fetch_parasha(parasha_name, out_dir):
@@ -172,7 +195,8 @@ def fetch_parasha(parasha_name, out_dir):
         links_by_verse = fetch_chapter_commentary_links(book, chapter)
 
         try:
-            chapter_len = chapter_verse_count(book, chapter)
+            chapter_verses, chapter_he_ref = fetch_chapter(book, chapter)
+            chapter_len = len(chapter_verses)
         except Exception as exc:
             log.warning("נכשל לזהות את מספר הפסוקים בפרק %s.%s: %s — מדלג על הפרק", book, chapter, exc)
             continue
@@ -183,7 +207,11 @@ def fetch_parasha(parasha_name, out_dir):
 
         for verse_num in range(first_verse, last_verse + 1):
             try:
-                verse_text_hebrew, ref_he = fetch_verse(book, chapter, verse_num)
+                verse_text_hebrew = _flatten_text(chapter_verses[verse_num - 1])
+                # The chapter endpoint does not expose a heRef per verse. This
+                # stable, human-readable reference is equivalent and avoids
+                # thousands of extra network calls.
+                ref_he = f"{chapter_he_ref}:{verse_num}" if chapter_he_ref else f"{book} {chapter}:{verse_num}"
             except Exception as exc:
                 log.warning("נכשל שליפת %s.%s.%s: %s — מדלג, ממשיך", book, chapter, verse_num, exc)
                 continue
@@ -217,11 +245,30 @@ def fetch_parasha(parasha_name, out_dir):
 
 def main():
     parser = argparse.ArgumentParser(description="שליפת פרשת שבוע (טקסט + פרשנות) מ-Sefaria API")
-    parser.add_argument("--parasha", required=True, help="שם הפרשה, למשל Balak")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--parasha", help="שם הפרשה, למשל Balak")
+    group.add_argument("--all", action="store_true", help="שליפת כל 54 פרשות התורה")
     parser.add_argument("--out-dir", default=os.path.join(os.path.dirname(__file__), "..", "data"))
+    parser.add_argument("--start-at", help="במצב --all, התחל מפרשה זו (להשלמת הרצה שנקטעה)")
     args = parser.parse_args()
-
-    fetch_parasha(args.parasha, os.path.abspath(args.out_dir))
+    names = ALL_PARASHOT if args.all else [args.parasha]
+    if args.start_at:
+        if not args.all:
+            parser.error("--start-at נתמך רק יחד עם --all")
+        try:
+            names = names[names.index(args.start_at):]
+        except ValueError:
+            parser.error(f"פרשה לא מוכרת ב---start-at: {args.start_at}")
+    failures = []
+    for index, name in enumerate(names, 1):
+        log.info("[%d/%d] מתחיל פרשת %s", index, len(names), name)
+        try:
+            fetch_parasha(name, os.path.abspath(args.out_dir))
+        except Exception as exc:
+            log.exception("שליפת פרשת %s נכשלה: %s", name, exc)
+            failures.append(name)
+    if failures:
+        raise SystemExit("נכשלו הפרשות: " + ", ".join(failures))
 
 
 if __name__ == "__main__":

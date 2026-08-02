@@ -1,0 +1,30 @@
+{
+  "perasha": "פרשת ויקהל",
+  "chapter": 35,
+  "verse": 18,
+  "verse_text_hebrew": "אֶת־יִתְדֹ֧ת הַמִּשְׁכָּ֛ן וְאֶת־יִתְדֹ֥ת הֶחָצֵ֖ר וְאֶת־מֵיתְרֵיהֶֽם׃",
+  "ref_he": "שמות ל״ה:18",
+  "source_url": "https://www.sefaria.org/Exodus.35.18",
+  "commentaries": [
+    {
+      "commentator_name": "רש\"י",
+      "commentary_text": "יתדת. לִתְקֹעַ וְלִקְשׁוֹר בָּהֶם סוֹפֵי הַיְרִיעוֹת בָּאָרֶץ, שֶׁלֹּא יָנוּעוּ בָּרוּחַ:",
+      "source_url": "https://www.sefaria.org/Rashi_on_Exodus_35:18:1"
+    },
+    {
+      "commentator_name": "רש\"י",
+      "commentary_text": "מיתריהם. חֲבָלִים לִקְשֹׁר:",
+      "source_url": "https://www.sefaria.org/Rashi_on_Exodus_35:18:2"
+    },
+    {
+      "commentator_name": "מנחת שי",
+      "commentary_text": "מיתריהם. מלא דמלא כתיב בתרין יודי\"ן חד קדים לתי\"ו וחד קדים לה\"א וכל מיתריהם באורייתא דכותא ומסורת דמסרא עליהון גבי מיתריהם דפרשת במדבר לית כותיה מלא שבושא הוא דכולא בנוסחי דיקי מלאים דמלאים כתיבין הרמ\"ה ז\"ל:",
+      "source_url": "https://www.sefaria.org/Minchat_Shai_on_Torah,_Exodus_35:18:1"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "אֶת יִתְדֹת הַמִּשְׁכָּן שהיריעות קשורות אליהן וְאֶת יִתְדֹת הֶחָצֵר וְאֶת מֵיתְרֵיהֶם, החבלים הקושרים אותן,",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Exodus_35:18"
+    }
+  ]
+}

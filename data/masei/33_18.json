@@ -1,0 +1,40 @@
+{
+  "perasha": "פרשת מסעי",
+  "chapter": 33,
+  "verse": 18,
+  "verse_text_hebrew": "וַיִּסְע֖וּ מֵחֲצֵרֹ֑ת וַֽיַּחֲנ֖וּ בְּרִתְמָֽה׃",
+  "ref_he": "במדבר ל״ג:18",
+  "source_url": "https://www.sefaria.org/Numbers.33.18",
+  "commentaries": [
+    {
+      "commentator_name": "רש\"י",
+      "commentary_text": "ויחנו ברתמה. עַל שֵׁם לָשׁוֹן הָרָע שֶׁל מְרַגְּלִים, שֶׁנֶּאֱמַר \"מַה יִּתֵּן לְךָ וּמַה יֹּסִיף לָךְ לָשׁוֹן רְמִיָּה חִצֵּי גִבּוֹר שְׁנוּנִים עִם גַּחֲלֵי רְתָמִים\" (תהלים ק\"כ):",
+      "source_url": "https://www.sefaria.org/Rashi_on_Numbers_33:18:1"
+    },
+    {
+      "commentator_name": "שפתי חכמים",
+      "commentary_text": "ע\"ש לשון הרע. רל\"ת למה קראו כאן רתמה ובמקום אחר קראו פארן וק\"ל: [דב\"ט] מה שהוצרך לפרש מסע הזו יותר משאר כל המסעות מפני שפה כתוב ויסעו מחצרות ויחנו ברתמה, ובפ' בהעלותך כתב ואחר נסעו הען מחצרות ויחנו במדבר פארן. ל\"פ ע\"ש לשון הרע וכו' כלומר שהכל מקום א':",
+      "source_url": "https://www.sefaria.org/Siftei_Chakhamim,_Numbers_33:18:1"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וַיִּסְעוּ מֵחֲצֵרֹת, וַיַּחֲנוּ בְּרִתְמָה.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Numbers_33:18"
+    },
+    {
+      "commentator_name": "קיצור בעל הטורים ",
+      "commentary_text": "ברתמה ע\"ש המרגלים שנאמר חצי גבור שנונים עם גחלי רתמים:",
+      "source_url": "https://www.sefaria.org/Kitzur_Ba'al_HaTurim_on_Numbers_33:18:1"
+    },
+    {
+      "commentator_name": "ברכת אשר על התורה",
+      "commentary_text": "רש\"י ד\"ה ויחנו ברתמה. ראה מה שכתבתי למעלה (בפסוק א). (פ' מטות מסעי תשמ\"ז)",
+      "source_url": "https://www.sefaria.org/Birkat_Asher_on_Torah,_Numbers_33:18:1"
+    },
+    {
+      "commentator_name": "משכיל לדוד",
+      "commentary_text": "ויחנו ברתמה ע״ש לה״ר וכו׳ ושינה שמה בכאן מה טעם דלעיל להודיע חסדי המקו׳ דאע״ג שהמקום נק׳ רתמה על גודל עונם דמש״ה גזר עליהם הטלטול אפ״ה לא הניעם וכו׳:",
+      "source_url": "https://www.sefaria.org/Maskil_LeDavid,_Numbers_33:18:1"
+    }
+  ]
+}

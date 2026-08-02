@@ -1,0 +1,70 @@
+{
+  "perasha": "פרשת וירא",
+  "chapter": 19,
+  "verse": 6,
+  "verse_text_hebrew": "וַיֵּצֵ֧א אֲלֵהֶ֛ם ל֖וֹט הַפֶּ֑תְחָה וְהַדֶּ֖לֶת סָגַ֥ר אַחֲרָֽיו׃",
+  "ref_he": "בראשית י״ט:6",
+  "source_url": "https://www.sefaria.org/Genesis.19.6",
+  "commentaries": [
+    {
+      "commentator_name": "אבן עזרא",
+      "commentary_text": "הפתחה. אל הפתח תי\"ו דלת סימן נקבה ונמצא חסר:",
+      "source_url": "https://www.sefaria.org/Ibn_Ezra_on_Genesis_19:6:1"
+    },
+    {
+      "commentator_name": "רד\"ק",
+      "commentary_text": "סָגַר אַחֲרָיו. סָגַר הַסּוֹגֵר שֶׁהָיָה בִּפְנִים, אוֹ לוֹט סָגַר מִבַּחוּץ.",
+      "source_url": "https://www.sefaria.org/Radak_on_Genesis_19:6:1"
+    },
+    {
+      "commentator_name": "מנחת שי",
+      "commentary_text": "ויצא אלהם. חסר יו\"ד כי לא נמנה עם הי\"ז מלאים במסורה רבתא והראשון מהם הוא ויביאו את לוט אליהם שבסמוך:",
+      "source_url": "https://www.sefaria.org/Minchat_Shai_on_Torah,_Genesis_19:6:1"
+    },
+    {
+      "commentator_name": "מלבי\"ם",
+      "commentary_text": "ויצא. והדלת סגר אחריו גם בזה נבדל ממעשה הגבעה ששם יצא בעה\"ב אליהם ולא סגר הדלת, אבל לוט ידע כי באו דרך רצח, ושם אמר להם אל תעשו את דבר הנבלה הזאת, כי היה שכלם שלם לדעת שהיא נבלה רק תאותם גברה על שכלם, לא כן בסדום שלא עשו זה מצד התאוה:",
+      "source_url": "https://www.sefaria.org/Malbim_on_Genesis_19:6:1"
+    },
+    {
+      "commentator_name": "ביאור יש\"ר",
+      "commentary_text": "הפתחה, אל הפתח והוא החלל שבו נכנסים ויוצאים, והדלת הוא הסובב לנעול ולפתוח:",
+      "source_url": "https://www.sefaria.org/Reggio_on_Torah,_Genesis_19:6:1"
+    },
+    {
+      "commentator_name": "ביאור יש\"ר",
+      "commentary_text": "והדלת סגר אחריו, לוט סגר מבחוץ אחר שיצא כי ירא פן יבואו בחזקה אל הבית לקחת האנשים:",
+      "source_url": "https://www.sefaria.org/Reggio_on_Torah,_Genesis_19:6:2"
+    },
+    {
+      "commentator_name": "נתינה לגר",
+      "commentary_text": "אל נא, בבעו כען, עמ\"ש לקמן ל\"ג יו\"ד.",
+      "source_url": "https://www.sefaria.org/Netinah_LaGer,_Genesis_19:6:1"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וַיֵּצֵא אֲלֵהֶם, אל אנשי העיר לוֹט הַפֶּתְחָה, אל הפתח, וְהַדֶּלֶת סָגַר אַחֲרָיו, על מנת שלא יוכלו להיכנס לביתו.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Genesis_19:6"
+    },
+    {
+      "commentator_name": "מחוקקי יהודה; קרני אור",
+      "commentary_text": "[ג] ור׳ יונה ן' גנאח פי' מלשון רוממות, כמו \"דל עיני למרום\" (ישעי׳ לח יד), וכן פי' רש\"י והרד\"ק שם, והוא קרוב מענינו, שהוא ענין גבהות ורוממות, בעבור שהדלת מתרוממת ומתנועעת:",
+      "source_url": "https://www.sefaria.org/Mechokekei_Yehudah;_Karnei_Ohr,_Genesis_19:3:1"
+    },
+    {
+      "commentator_name": "מחוקקי יהודה; יהל אור",
+      "commentary_text": "(יט) והה\"א שבסוף במקום למ\"ד בתחלתה, והפתח הוא החלל שבו נכנסים ויוצאים, והדלת הוא הסובב לנעול ולפתוח:",
+      "source_url": "https://www.sefaria.org/Mechokekei_Yehudah;_Yahel_Ohr,_Genesis_19:19:1"
+    },
+    {
+      "commentator_name": "מחוקקי יהודה; יהל אור",
+      "commentary_text": "(כ) דעתו שאין התי\"ו שרשית בדלת:",
+      "source_url": "https://www.sefaria.org/Mechokekei_Yehudah;_Yahel_Ohr,_Genesis_19:20:1"
+    },
+    {
+      "commentator_name": "מחוקקי יהודה; יהל אור",
+      "commentary_text": "(כא) ובכ\"י נוסף \"על דל שפתי, ופי' תי\"ו מן דלת סימן נקבה ונמצא חסר, נמצא במקרא חסר התי\"ו \"נצרה על דל שפתי\" (תה' קמא ג) שם מלת \"דל מן \"דלת\", וכן פי' הח' ז\"ל שם וז\"ל \"מלת דל, כמו דלת, כי התי\"ו סימן לשון נקבה, \"הדלת תסוב על צירה\" (משלי כו יד), והנה הטעם כמו פתחי פיך\":",
+      "source_url": "https://www.sefaria.org/Mechokekei_Yehudah;_Yahel_Ohr,_Genesis_19:21:1"
+    }
+  ]
+}

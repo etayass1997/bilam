@@ -1,0 +1,20 @@
+{
+  "perasha": "פרשת נח",
+  "chapter": 11,
+  "verse": 14,
+  "verse_text_hebrew": "וְשֶׁ֥לַח חַ֖י שְׁלֹשִׁ֣ים שָׁנָ֑ה וַיּ֖וֹלֶד אֶת־עֵֽבֶר׃",
+  "ref_he": "בראשית י״א:14",
+  "source_url": "https://www.sefaria.org/Genesis.11.14",
+  "commentaries": [
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וְשֶׁלַח חַי שְׁלֹשִׁים שָׁנָה, וַיּוֹלֶד אֶת עֵבֶר.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Genesis_11:14"
+    },
+    {
+      "commentator_name": "קאסוטו",
+      "commentary_text": "פיסקה שלישית: שלח ושלח חי. על סדר המלים במשפט עיין לפס׳ י״ב. שלשים שנה. בדיוק המספר היסודי לגיל האבות בשנת לידת הבכור: שש יחידות של 60 חודש, או מחצית יחידה של 60 שנה. עבר. עיין למעלה, על י׳, כ״ד.",
+      "source_url": "https://www.sefaria.org/Cassuto_on_Genesis,_From_Noah_to_Abraham_11:14:1-4"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "perasha": "פרשת במדבר",
+  "chapter": 1,
+  "verse": 12,
+  "verse_text_hebrew": "לְדָ֕ן אֲחִיעֶ֖זֶר בֶּן־עַמִּֽישַׁדָּֽי׃",
+  "ref_he": "במדבר א׳:12",
+  "source_url": "https://www.sefaria.org/Numbers.1.12",
+  "commentaries": [
+    {
+      "commentator_name": "פענח רזא",
+      "commentary_text": "לדן אחיעזר ע\"ש שנעשה אהליאב למטה דן א\"ח ועז\"ר במלאכת המשכן לבצלאל למטה יהודה שנקרא ג\"כ עזר כדכתיב ועזר מצריו תהי', ושנקרא בן עמי, ע\"ש שדן עמו ומלך עליהם כדלעיל ושנקרא שדי כדלעיל על שם הוציאוה וגו':",
+      "source_url": "https://www.sefaria.org/Paaneach_Raza,_Bamidbar_13"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "השבטים בני השפחות – לְדָן, בכור השפחות – אֲחִיעֶזֶר בֶּן עַמִּישַׁדָּי.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Numbers_1:12"
+    },
+    {
+      "commentator_name": "חזקוני",
+      "commentary_text": "לדן הזכירו תחלה לבני השפחות לפי שהוא בכור השפחות ואחריו אשר ע״‎י שהוא ראש החונים על דגלו ואחריו גד שהוא בכור שפחת לאה.",
+      "source_url": "https://www.sefaria.org/Chizkuni,_Numbers_1:12:1"
+    },
+    {
+      "commentator_name": "מנחת שי",
+      "commentary_text": "אחיעזר. חדא מלה כתיב ומלא יו\"ד וכל אורייתא דכותיה:",
+      "source_url": "https://www.sefaria.org/Minchat_Shai_on_Torah,_Numbers_1:12:1"
+    },
+    {
+      "commentator_name": "מנחת שי",
+      "commentary_text": "עמישדי. חדא מלה כתיב ומלא יו\"ד וכל אורייתא דכותיה:",
+      "source_url": "https://www.sefaria.org/Minchat_Shai_on_Torah,_Numbers_1:12:2"
+    }
+  ]
+}

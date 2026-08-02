@@ -1,0 +1,45 @@
+{
+  "perasha": "פרשת פקודי",
+  "chapter": 40,
+  "verse": 22,
+  "verse_text_hebrew": "וַיִּתֵּ֤ן אֶת־הַשֻּׁלְחָן֙ בְּאֹ֣הֶל מוֹעֵ֔ד עַ֛ל יֶ֥רֶךְ הַמִּשְׁכָּ֖ן צָפֹ֑נָה מִח֖וּץ לַפָּרֹֽכֶת׃",
+  "ref_he": "שמות מ׳:22",
+  "source_url": "https://www.sefaria.org/Exodus.40.22",
+  "commentaries": [
+    {
+      "commentator_name": "רש\"י",
+      "commentary_text": "על ירך המשכן צפנה. בַּחֵצִי הַצְּפוֹנִי שֶׁל רֹחַב הַבַּיִת:",
+      "source_url": "https://www.sefaria.org/Rashi_on_Exodus_40:22:1"
+    },
+    {
+      "commentator_name": "רש\"י",
+      "commentary_text": "ירך. כְּתַרְגּוּמוֹ, צִדָּא, כַּיָּרֵךְ הַזֶּה שֶׁהוּא בְּצִדּוֹ שֶׁל אָדָם:",
+      "source_url": "https://www.sefaria.org/Rashi_on_Exodus_40:22:2"
+    },
+    {
+      "commentator_name": "ביאור יש\"ר",
+      "commentary_text": "על ירך המשכן צפנה, בחצי הצפוני של רוחב הבית:",
+      "source_url": "https://www.sefaria.org/Reggio_on_Torah,_Exodus_40:22:1"
+    },
+    {
+      "commentator_name": "נתינה לגר",
+      "commentary_text": "על ירך. על צדא. אפשר שהוא ט\"ס וצ\"ל \"שדא\" וכ\"ה בחומשי רוו\"ה, וגם בדברי רש\"י אפשר להגיה כן, והטעות נולד' ממ\"ש רש\"י אח\"כ \"כירך הזה שהוא בצדו של אדם\" שהוא מדברי רש\"י פי' על \"שדא\" בש', ובראות המדפיסים הטעות ברש\"י הביאוהו גם בדברי הת', וכן לעיל (כ\"ה ל\"א) \"ירכה, שדה\" אבל מרש\"י שם לא משמע כן, ובכ\"י פה הנוסחא \"צדא\" בצ' ובמנורה \"שדה\" בש'.",
+      "source_url": "https://www.sefaria.org/Netinah_LaGer,_Exodus_40:22:1"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וַיִּתֵּן אֶת הַשֻּׁלְחָן בְּאֹהֶל מוֹעֵד, עַל יֶרֶךְ, צד הַמִּשְׁכָּן צָפֹנָה מִחוּץ לַפָּרֹכֶת החוצצת בין הקודש לבין קודש-הקודשים.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Exodus_40:22"
+    },
+    {
+      "commentator_name": "פרדס יוסף",
+      "commentary_text": "ברש\"י עמ\"ש בס' טל אורות ביצה דף י\"ד:",
+      "source_url": "https://www.sefaria.org/Pardes_Yosef,_Exodus_40:22:1"
+    },
+    {
+      "commentator_name": "קאסוטו",
+      "commentary_text": "ג) ויתן את השלחן באהל מועד על ירך המשכן צפונה, מחוץ לפרוכת, בהתאם אל פס' ד' ואל כ\"ו, כב ל\"ה,",
+      "source_url": "https://www.sefaria.org/Cassuto_on_Exodus_40:22:1"
+    }
+  ]
+}

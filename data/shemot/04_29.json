@@ -1,0 +1,30 @@
+{
+  "perasha": "פרשת שמות",
+  "chapter": 4,
+  "verse": 29,
+  "verse_text_hebrew": "וַיֵּ֥לֶךְ מֹשֶׁ֖ה וְאַהֲרֹ֑ן וַיַּ֣אַסְפ֔וּ אֶת־כׇּל־זִקְנֵ֖י בְּנֵ֥י יִשְׂרָאֵֽל׃",
+  "ref_he": "שמות ד׳:29",
+  "source_url": "https://www.sefaria.org/Exodus.4.29",
+  "commentaries": [
+    {
+      "commentator_name": "אבן עזרא",
+      "commentary_text": "וילך. הזקנים הם היועצים בכל דור ודור כי לא יוכלו לדבר עם שש מאות אלף איש, רק הזקנים ידברו להם:",
+      "source_url": "https://www.sefaria.org/Ibn_Ezra_on_Exodus_4:29:1"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וַיֵּלֶךְ מֹשֶׁה וְאַהֲרֹן, וַיַּאַסְפוּ אֶת כָּל זִקְנֵי, מנהיגי בְּנֵי יִשְׂרָאֵל.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Exodus_4:29"
+    },
+    {
+      "commentator_name": "חזקוני",
+      "commentary_text": "[זקני ישראל המיוחדים לישיבה].",
+      "source_url": "https://www.sefaria.org/Chizkuni,_Exodus_4:29:1"
+    },
+    {
+      "commentator_name": "קאסוטו",
+      "commentary_text": "וילך משה ואהרן ויאספו את כל זקני בני ישראל. וכן עשו כפי מה שנצטווה משה (ד', ט\"ו–ט\"ז) על שיתוף אהרן בשליחות ועל שימת הדברים בפיו,",
+      "source_url": "https://www.sefaria.org/Cassuto_on_Exodus_4:29:1"
+    }
+  ]
+}

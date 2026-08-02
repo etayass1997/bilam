@@ -1,0 +1,30 @@
+{
+  "perasha": "Nasso",
+  "chapter": 7,
+  "verse": 81,
+  "verse_text_hebrew": "פַּ֣ר אֶחָ֞ד בֶּן־בָּקָ֗ר אַ֧יִל אֶחָ֛ד כֶּֽבֶשׂ־אֶחָ֥ד בֶּן־שְׁנָת֖וֹ לְעֹלָֽה׃",
+  "ref_he": "במדבר ז׳:81",
+  "source_url": "https://www.sefaria.org/Numbers.7.81",
+  "commentaries": [
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "פַּר אֶחָד בֶּן בָּקָר, אַיִל אֶחָד, כֶּבֶשׂ אֶחָד בֶּן שְׁנָתוֹ – לְעֹלָה;",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Numbers_7:81"
+    },
+    {
+      "commentator_name": "שפתי כהן",
+      "commentary_text": "פר אחד. זה אברהם שהיה אחד ופרסם אחדותו ית' בעולם:",
+      "source_url": "https://www.sefaria.org/Siftei_Kohen_on_Torah,_Numbers_7:89:35"
+    },
+    {
+      "commentator_name": "שפתי כהן",
+      "commentary_text": "איל אחד. זה יצחק:",
+      "source_url": "https://www.sefaria.org/Siftei_Kohen_on_Torah,_Numbers_7:89:36"
+    },
+    {
+      "commentator_name": "שפתי כהן",
+      "commentary_text": "כבש אחד. זה יעקב:",
+      "source_url": "https://www.sefaria.org/Siftei_Kohen_on_Torah,_Numbers_7:89:37"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "perasha": "פרשת מטות",
+  "chapter": 32,
+  "verse": 4,
+  "verse_text_hebrew": "הָאָ֗רֶץ אֲשֶׁ֨ר הִכָּ֤ה יְהֹוָה֙ לִפְנֵי֙ עֲדַ֣ת יִשְׂרָאֵ֔ל אֶ֥רֶץ מִקְנֶ֖ה הִ֑וא וְלַֽעֲבָדֶ֖יךָ מִקְנֶֽה׃ {ס}",
+  "ref_he": "במדבר ל״ב:4",
+  "source_url": "https://www.sefaria.org/Numbers.32.4",
+  "commentaries": [
+    {
+      "commentator_name": "אוהב גר",
+      "commentary_text": "הארץ אשר הכה ה' די מחא ה' ית יתבהא; ובש\"ח השמיטו ית יתבהא, והוא טעות, לפי דרך אנקלוס.",
+      "source_url": "https://www.sefaria.org/Ohev_Ger,_Part_II,_Variants_in_Targum_Onkelos_307:1"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "כל הָאָרֶץ אֲשֶׁר הִכָּה, כבש ה' לִפְנֵי עֲדַת יִשְׂרָאֵל בעבר הירדן – אֶרֶץ מִקְנֶה הִוא, וְלַעֲבָדֶיךָ – לנו יש מִקְנֶה.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Numbers_32:4"
+    },
+    {
+      "commentator_name": "העמק דבר",
+      "commentary_text": "ולעבדיך מקנה. והפסיקו מלדבר. מוכח שהי׳ בקשה ביחוד ע״ד המקנה לבד. מה שהסכים משה. אלא שלא נתפרש בתורה. שלא נשארו אלו הדברים. כי הוסיפו לבקש הארץ לאחוזה. ובזה יובן להלן מקרא ט״ז:",
+      "source_url": "https://www.sefaria.org/Haamek_Davar_on_Numbers_32:4:1"
+    },
+    {
+      "commentator_name": "נתינה לגר",
+      "commentary_text": "הארץ אשר הכה ה', ארעא די מחא ה' ית יתבהא. הוסיף מלות \"די יתבהא\" כי מעצמו מובן כי לא את הארץ הכה כ\"א את יושביה.",
+      "source_url": "https://www.sefaria.org/Netinah_LaGer,_Numbers_32:4:1"
+    }
+  ]
+}

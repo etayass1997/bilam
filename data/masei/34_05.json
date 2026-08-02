@@ -1,0 +1,45 @@
+{
+  "perasha": "פרשת מסעי",
+  "chapter": 34,
+  "verse": 5,
+  "verse_text_hebrew": "וְנָסַ֧ב הַגְּב֛וּל מֵעַצְמ֖וֹן נַ֣חְלָה מִצְרָ֑יִם וְהָי֥וּ תוֹצְאֹתָ֖יו הַיָּֽמָּה׃",
+  "ref_he": "במדבר ל״ד:5",
+  "source_url": "https://www.sefaria.org/Numbers.34.5",
+  "commentaries": [
+    {
+      "commentator_name": "רש\"י",
+      "commentary_text": "והיו תוצאתיו הימה. אֶל מֶצֶר הַמַּעֲרָב שֶׁאֵין עוֹד גְּבוּל נֶגֶב מַאֲרִיךְ לְצַד הַמַּעֲרָב מִשָּׁם וָהָלְאָה:",
+      "source_url": "https://www.sefaria.org/Rashi_on_Numbers_34:5:1"
+    },
+    {
+      "commentator_name": "רשב\"ם",
+      "commentary_text": "והיו תוצאותיו הימה - גבול דרומית מערבית.",
+      "source_url": "https://www.sefaria.org/Rashbam_on_Numbers_34:5:1"
+    },
+    {
+      "commentator_name": "שד\"ל",
+      "commentary_text": "נחלה מצרים: איננו נילוס.",
+      "source_url": "https://www.sefaria.org/Shadal_on_Numbers_34:5:1"
+    },
+    {
+      "commentator_name": "רבנו בחיי",
+      "commentary_text": "נחלה מצרים. כלומר אל נחל מצרים, ואיננו היאור. והוא מלעיל, וכן (תהילים קכ״ד:ד׳) נחלה עבר, מלעיל.",
+      "source_url": "https://www.sefaria.org/Rabbeinu_Bahya,_Bamidbar_34:5:1"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וְנָסַב הַגְּבוּל מֵעַצְמוֹן נַחְלָה, לנחל מִצְרָיִם, ואדי אל עריש לפי המסורת המקובלת, וְהָיוּ תוֹצְאֹתָיו הַיָּמָּה, אל הים התיכון.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Numbers_34:5"
+    },
+    {
+      "commentator_name": "אבן עזרא",
+      "commentary_text": "נחלה מצרים. אל נחל מצרים ואיננו היאור:",
+      "source_url": "https://www.sefaria.org/Ibn_Ezra_on_Numbers_34:5:1"
+    },
+    {
+      "commentator_name": "העמק דבר",
+      "commentary_text": "נחלה מצרים. בת״י פי׳ יאור והוא הנילוס. והוא פלא. וע׳ מש״כ בס׳ אבן ספיר שאינו אלא קרן ממנו וע״ש באורך:",
+      "source_url": "https://www.sefaria.org/Haamek_Davar_on_Numbers_34:5:1"
+    }
+  ]
+}

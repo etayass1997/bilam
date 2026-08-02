@@ -1,0 +1,20 @@
+{
+  "perasha": "פרשת בראשית",
+  "chapter": 5,
+  "verse": 17,
+  "verse_text_hebrew": "וַיִּהְיוּ֙ כׇּל־יְמֵ֣י מַהֲלַלְאֵ֔ל חָמֵ֤שׁ וְתִשְׁעִים֙ שָׁנָ֔ה וּשְׁמֹנֶ֥ה מֵא֖וֹת שָׁנָ֑ה וַיָּמֹֽת׃ {ס}",
+  "ref_he": "בראשית ה׳:17",
+  "source_url": "https://www.sefaria.org/Genesis.5.17",
+  "commentaries": [
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וַיִּהְיוּ כָּל יְמֵי מַהֲלַלְאֵל חָמֵשׁ וְתִשְׁעִים שָׁנָה וּשְׁמֹנֶה מֵאוֹת שָׁנָה, וַיָּמֹת.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Genesis_5:17"
+    },
+    {
+      "commentator_name": "קאסוטו",
+      "commentary_text": "חמש ותשעים שנה ושמנה מאות שנה. המספר היסודי של 900 שנה, שהן כאמור 60+60+60 יחידות של 60 חודש, פחות יחידה אחת.",
+      "source_url": "https://www.sefaria.org/Cassuto_on_Genesis,_From_Adam_to_Noah_5:17:1"
+    }
+  ]
+}

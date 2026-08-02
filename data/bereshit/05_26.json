@@ -1,0 +1,25 @@
+{
+  "perasha": "פרשת בראשית",
+  "chapter": 5,
+  "verse": 26,
+  "verse_text_hebrew": "וַיְחִ֣י מְתוּשֶׁ֗לַח אַֽחֲרֵי֙ הוֹלִיד֣וֹ אֶת־לֶ֔מֶךְ שְׁתַּ֤יִם וּשְׁמוֹנִים֙ שָׁנָ֔ה וּשְׁבַ֥ע מֵא֖וֹת שָׁנָ֑ה וַיּ֥וֹלֶד בָּנִ֖ים וּבָנֽוֹת׃",
+  "ref_he": "בראשית ה׳:26",
+  "source_url": "https://www.sefaria.org/Genesis.5.26",
+  "commentaries": [
+    {
+      "commentator_name": "מנחת שי",
+      "commentary_text": "מתושלח אחרי. בפשט':",
+      "source_url": "https://www.sefaria.org/Minchat_Shai_on_Torah,_Genesis_5:26:1"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וַיְחִי מְתוּשֶׁלַח אַחֲרֵי הוֹלִידוֹ אֶת לֶמֶךְ שְׁתַּיִם וּשְׁמוֹנִים שָׁנָה וּשְׁבַע מֵאוֹת שָׁנָה, וַיּוֹלֶד בָּנִים וּבָנוֹת.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Genesis_5:26"
+    },
+    {
+      "commentator_name": "קאסוטו",
+      "commentary_text": "שתים ושמונים שנה ושבע מאות שנה. המספר היסודי, 800, פחות 6x3. מתושלח חי עוד 60 חודש לאחר מותו של למך בנו (5+777= 782).",
+      "source_url": "https://www.sefaria.org/Cassuto_on_Genesis,_From_Adam_to_Noah_5:26:1"
+    }
+  ]
+}

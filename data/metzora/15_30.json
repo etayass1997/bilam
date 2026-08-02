@@ -1,0 +1,25 @@
+{
+  "perasha": "פרשת מצורע",
+  "chapter": 15,
+  "verse": 30,
+  "verse_text_hebrew": "וְעָשָׂ֤ה הַכֹּהֵן֙ אֶת־הָאֶחָ֣ד חַטָּ֔את וְאֶת־הָאֶחָ֖ד עֹלָ֑ה וְכִפֶּ֨ר עָלֶ֤יהָ הַכֹּהֵן֙ לִפְנֵ֣י יְהֹוָ֔ה מִזּ֖וֹב טֻמְאָתָֽהּ׃",
+  "ref_he": "ויקרא ט״ו:30",
+  "source_url": "https://www.sefaria.org/Leviticus.15.30",
+  "commentaries": [
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וְעָשָׂה הַכֹּהֵן אֶת הָאֶחָד חַטָּאת וְאֶת הָאֶחָד עֹלָה, וְכִפֶּר עָלֶיהָ הַכֹּהֵן לִפְנֵי ה' מִזּוֹב טֻמְאָתָהּ.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Leviticus_15:30"
+    },
+    {
+      "commentator_name": "העמק דבר",
+      "commentary_text": "מזוב טמאתה. כבר נתבאר דבא ללמדנו שאינו עולה לחיוב אחר:",
+      "source_url": "https://www.sefaria.org/Haamek_Davar_on_Leviticus_15:30:1"
+    },
+    {
+      "commentator_name": "פירושי רד\"צ הופמן",
+      "commentary_text": "\"מזוב טמאתה\", בזב כתוב רק \"מזובו\". משום ששם כל זיבה טמאה, ואילו כאן אין זיבת דם נדה טעונה קרבן, לכן כתוב \"מזוב טמאתה\".",
+      "source_url": "https://www.sefaria.org/David_Zvi_Hoffmann_on_Leviticus_15:30:1"
+    }
+  ]
+}

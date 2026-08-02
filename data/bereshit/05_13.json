@@ -1,0 +1,20 @@
+{
+  "perasha": "פרשת בראשית",
+  "chapter": 5,
+  "verse": 13,
+  "verse_text_hebrew": "וַיְחִ֣י קֵינָ֗ן אַחֲרֵי֙ הוֹלִיד֣וֹ אֶת־מַֽהֲלַלְאֵ֔ל אַרְבָּעִ֣ים שָׁנָ֔ה וּשְׁמֹנֶ֥ה מֵא֖וֹת שָׁנָ֑ה וַיּ֥וֹלֶד בָּנִ֖ים וּבָנֽוֹת׃",
+  "ref_he": "בראשית ה׳:13",
+  "source_url": "https://www.sefaria.org/Genesis.5.13",
+  "commentaries": [
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וַיְחִי קֵינָן אַחֲרֵי הוֹלִידוֹ אֶת מַהֲלַלְאֵל אַרְבָּעִים שָׁנָה וּשְׁמֹנֶה מֵאוֹת שָׁנָה, וַיּוֹלֶד בָּנִים וּבָנוֹת.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Genesis_5:13"
+    },
+    {
+      "commentator_name": "קאסוטו",
+      "commentary_text": "ארבעים שנה ושמנה מאות שנה. על המספר היסודי של 800 שנה נוספים 120+360 חודש.",
+      "source_url": "https://www.sefaria.org/Cassuto_on_Genesis,_From_Adam_to_Noah_5:13:1"
+    }
+  ]
+}

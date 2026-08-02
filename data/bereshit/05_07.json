@@ -1,0 +1,25 @@
+{
+  "perasha": "פרשת בראשית",
+  "chapter": 5,
+  "verse": 7,
+  "verse_text_hebrew": "וַֽיְחִי־שֵׁ֗ת אַֽחֲרֵי֙ הוֹלִיד֣וֹ אֶת־אֱנ֔וֹשׁ שֶׁ֣בַע שָׁנִ֔ים וּשְׁמֹנֶ֥ה מֵא֖וֹת שָׁנָ֑ה וַיּ֥וֹלֶד בָּנִ֖ים וּבָנֽוֹת׃",
+  "ref_he": "בראשית ה׳:7",
+  "source_url": "https://www.sefaria.org/Genesis.5.7",
+  "commentaries": [
+    {
+      "commentator_name": "מנחת שי",
+      "commentary_text": "הולידו. הגלגל בדל\"ת:",
+      "source_url": "https://www.sefaria.org/Minchat_Shai_on_Torah,_Genesis_5:7:1"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וַיְחִי שֵׁת אַחֲרֵי הוֹלִידוֹ אֶת אֱנוֹשׁ שֶׁבַע שָׁנִים וּשְׁמֹנֶה מֵאוֹת שָׁנָה, וַיּוֹלֶד בָּנִים וּבָנוֹת.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Genesis_5:7"
+    },
+    {
+      "commentator_name": "קאסוטו",
+      "commentary_text": "ויחי שת וגו׳. השווה את הביטוי, השונה במקצת, אבל דומה בהוראתו, בפס׳ ד׳. שבע שנים ושמנה מאות שנה. המספר היסודי של 800 שנה, בתוספת שבע שנים.",
+      "source_url": "https://www.sefaria.org/Cassuto_on_Genesis,_From_Adam_to_Noah_5:7:1-2"
+    }
+  ]
+}

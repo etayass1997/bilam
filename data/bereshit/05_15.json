@@ -1,0 +1,25 @@
+{
+  "perasha": "פרשת בראשית",
+  "chapter": 5,
+  "verse": 15,
+  "verse_text_hebrew": "וַיְחִ֣י מַֽהֲלַלְאֵ֔ל חָמֵ֥שׁ שָׁנִ֖ים וְשִׁשִּׁ֣ים שָׁנָ֑ה וַיּ֖וֹלֶד אֶת־יָֽרֶד׃",
+  "ref_he": "בראשית ה׳:15",
+  "source_url": "https://www.sefaria.org/Genesis.5.15",
+  "commentaries": [
+    {
+      "commentator_name": "מנחת שי",
+      "commentary_text": "ויחי מהללאל חמש. סתומה:",
+      "source_url": "https://www.sefaria.org/Minchat_Shai_on_Torah,_Genesis_5:15:1"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וַיְחִי מַהֲלַלְאֵל חָמֵשׁ שָׁנִים וְשִׁשִּׁים שָׁנָה, וַיּוֹלֶד אֶת יָרֶד.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Genesis_5:15"
+    },
+    {
+      "commentator_name": "קאסוטו",
+      "commentary_text": "פיסקה חמישית: מהללאל חמש שנים וששים שנה. כלומר: 60 שנה ו־60 חודש. ירד. באכדית ‎(w)ardu, עֶבד (Albright, ב-JBL, כרך נ״ח [1939], עמ׳ 17, הערה 9a ).",
+      "source_url": "https://www.sefaria.org/Cassuto_on_Genesis,_From_Adam_to_Noah_5:15:1-3"
+    }
+  ]
+}

@@ -87,15 +87,29 @@ def ingest_parasha_dir(engine, parasha_dir):
 
 def main():
     parser = argparse.ArgumentParser(description="Ingest פרשת שבוע ל-KB של בלעם")
-    parser.add_argument(
-        "--parasha-dir",
-        required=True,
-        help="תיקיית data/<parasha> שנוצרה ע''י fetch_sefaria.py",
-    )
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--parasha-dir", help="תיקיית data/<parasha> שנוצרה ע''י fetch_sefaria.py")
+    group.add_argument("--all-data", help="תיקיית data המכילה את כל הפרשות; בונה KB נקי ומלא")
     args = parser.parse_args()
 
-    engine = RAGEngine()
-    verse_count, commentary_count = ingest_parasha_dir(engine, os.path.abspath(args.parasha_dir))
+    engine = RAGEngine(load_existing=not bool(args.all_data))
+    if args.all_data:
+        # A complete rebuild must not retain stale documents from an older KB.
+        engine.docs = []
+        engine._doc_positions = {}
+        parasha_dirs = sorted(
+            entry.path for entry in os.scandir(os.path.abspath(args.all_data))
+            if entry.is_dir() and any(name.endswith(".json") for name in os.listdir(entry.path))
+        )
+    else:
+        parasha_dirs = [os.path.abspath(args.parasha_dir)]
+
+    verse_count = commentary_count = 0
+    for parasha_dir in parasha_dirs:
+        verses, commentaries = ingest_parasha_dir(engine, parasha_dir)
+        verse_count += verses
+        commentary_count += commentaries
+        print(f"{os.path.basename(parasha_dir)}: {verses} פסוקים + {commentaries} פירושים")
     engine.finalize()
     engine.save()
 

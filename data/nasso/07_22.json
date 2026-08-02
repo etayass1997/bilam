@@ -1,0 +1,20 @@
+{
+  "perasha": "Nasso",
+  "chapter": 7,
+  "verse": 22,
+  "verse_text_hebrew": "שְׂעִיר־עִזִּ֥ים אֶחָ֖ד לְחַטָּֽאת׃",
+  "ref_he": "במדבר ז׳:22",
+  "source_url": "https://www.sefaria.org/Numbers.7.22",
+  "commentaries": [
+    {
+      "commentator_name": "רש\"י",
+      "commentary_text": "שעיר עיזים. לְכַפֵּר עַל מְכִירַת יוֹסֵף שֶׁנֶּאֱמַר בּוֹ \"וַיִּשְׁחֲטוּ שְׂעִיר עִזִּים\" (שם ל\"ז):",
+      "source_url": "https://www.sefaria.org/Rashi_on_Numbers_7:22:1"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "שְׂעִיר עִזִּים אֶחָד – לְחַטָּאת;",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Numbers_7:22"
+    }
+  ]
+}

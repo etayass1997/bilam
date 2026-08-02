@@ -9,7 +9,7 @@
 ## מבנה הפרויקט
 
 ```
-data/balak/        קבצי JSON (פסוק+פרשנות) שנוצרו ע"י scripts/fetch_sefaria.py
+data/<parasha>/    קבצי JSON לכל 54 הפרשות (פסוק+פרשנות מ-Sefaria)
 scripts/           שלב 1 — שליפה חד-פעמית מ-Sefaria API
 backend/           Flask app + מנוע BM25 + KB
 frontend/          PWA סטטי, מוגש ע"י backend/app.py
@@ -25,6 +25,19 @@ python ingest.py --parasha-dir ../data/<slug>
 ```
 
 `ingest.py` מוסיף ל-KB הקיים (לא מוחק פרשות קודמות). שום קוד לא מניח שקיימת רק פרשת בלק.
+
+## בניית מאגר מלא — כל התורה
+
+```bash
+cd scripts
+python fetch_sefaria.py --all
+cd ../backend
+python ingest.py --all-data ../data
+```
+
+הפקודה אוספת את 54 הפרשות הנפרדות. פרשות מחוברות אינן נאספות שוב, משום שהן
+מורכבות מאותם פסוקים. הבנייה המלאה מאפסת את ה-KB הישן ובונה אותו מחדש מכל
+קבצי `data`, כדי למנוע מסמכים ישנים או כפולים.
 
 ## הרצה מקומית
 
@@ -45,5 +58,5 @@ python app.py                                    # רץ על http://localhost:50
 2. Render → New Web Service → מחברים את הריפו, **Root Directory: `backend`**.
 3. Build command: `pip install -r requirements.txt`. Start command: כבר מוגדר ב-`Procfile` (`gunicorn app:app`).
 4. **אין** להגדיר `ANTHROPIC_API_KEY` ב-Environment Variables — הסוכן הזה לא משתמש במפתח בצד השרת בכלל.
-5. ודאו ש-`backend/kb/kb_data.json` נכלל ב-git (לא ב-`.gitignore`) כדי שהמאגר יהיה זמין ב-production.
+5. ודאו ש-`backend/kb/kb_data.json.gz` נכלל ב-git (לא ב-`.gitignore`) כדי שהמאגר יהיה זמין ב-production. המנוע עדיין יודע לקרוא גם `kb_data.json` ישן.
 6. כתובת השירות (`https://<your-service>.onrender.com`) מגישה גם את הדף הראשי וגם את ה-API — אין צורך ב-GitHub Pages.

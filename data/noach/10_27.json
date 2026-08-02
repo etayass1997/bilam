@@ -1,0 +1,30 @@
+{
+  "perasha": "פרשת נח",
+  "chapter": 10,
+  "verse": 27,
+  "verse_text_hebrew": "וְאֶת־הֲדוֹרָ֥ם וְאֶת־אוּזָ֖ל וְאֶת־דִּקְלָֽה׃",
+  "ref_he": "בראשית י׳:27",
+  "source_url": "https://www.sefaria.org/Genesis.10.27",
+  "commentaries": [
+    {
+      "commentator_name": "שד\"ל",
+      "commentary_text": "הדורם ודקלה: לא נודעו.",
+      "source_url": "https://www.sefaria.org/Shadal_on_Genesis_10:27:1"
+    },
+    {
+      "commentator_name": "שד\"ל",
+      "commentary_text": "אוזל: שם עיר גדולה ואם בערב המברכת (Iemen) ושמה עתה שנעא, ועתה בימינו הומת שם בסם המות החכם (Sectzen).",
+      "source_url": "https://www.sefaria.org/Shadal_on_Genesis_10:27:2"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וְאֶת הֲדוֹרָם וְאֶת אוּזָל וְאֶת דִּקְלָה",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Genesis_10:27"
+    },
+    {
+      "commentator_name": "קאסוטו",
+      "commentary_text": "הדורם. פירושו של שם זה כנראה: האל הד הוא רם. שם דומה נמצא בדרום ערב. אוזל. בתורת השומרונים איזל (וכיוצא בזה בשבעים: Αίξήγ) לפי מסורת מאוחרת, ערבית ויהודית. כך היה שמה של עיר צנעא, בירת תימן. דקלה. פירושו תמר, גם בערבית.",
+      "source_url": "https://www.sefaria.org/Cassuto_on_Genesis,_From_Noah_to_Abraham_10:27:1-3"
+    }
+  ]
+}

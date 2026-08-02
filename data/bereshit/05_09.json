@@ -1,0 +1,25 @@
+{
+  "perasha": "פרשת בראשית",
+  "chapter": 5,
+  "verse": 9,
+  "verse_text_hebrew": "וַיְחִ֥י אֱנ֖וֹשׁ תִּשְׁעִ֣ים שָׁנָ֑ה וַיּ֖וֹלֶד אֶת־קֵינָֽן׃",
+  "ref_he": "בראשית ה׳:9",
+  "source_url": "https://www.sefaria.org/Genesis.5.9",
+  "commentaries": [
+    {
+      "commentator_name": "מנחת שי",
+      "commentary_text": "ויחי אנוש תשעים. סתומה:",
+      "source_url": "https://www.sefaria.org/Minchat_Shai_on_Torah,_Genesis_5:9:1"
+    },
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וַיְחִי אֱנוֹשׁ תִּשְׁעִים שָׁנָה, וַיּוֹלֶד אֶת קֵינָן, שם נוסף המתקשר לבעלות וקניין.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Genesis_5:9"
+    },
+    {
+      "commentator_name": "קאסוטו",
+      "commentary_text": "פיסקה שלישית: אנוש. תשעים שנה. 6+6+6 יחידות של 60 חודש. קינן. על שם זה עיין למעלה, על ד׳, א׳.",
+      "source_url": "https://www.sefaria.org/Cassuto_on_Genesis,_From_Adam_to_Noah_5:9:1-3"
+    }
+  ]
+}

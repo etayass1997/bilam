@@ -1,0 +1,20 @@
+{
+  "perasha": "פרשת בראשית",
+  "chapter": 5,
+  "verse": 11,
+  "verse_text_hebrew": "וַיִּֽהְיוּ֙ כׇּל־יְמֵ֣י אֱנ֔וֹשׁ חָמֵ֣שׁ שָׁנִ֔ים וּתְשַׁ֥ע מֵא֖וֹת שָׁנָ֑ה וַיָּמֹֽת׃ {ס}",
+  "ref_he": "בראשית ה׳:11",
+  "source_url": "https://www.sefaria.org/Genesis.5.11",
+  "commentaries": [
+    {
+      "commentator_name": "ביאור שטיינזלץ",
+      "commentary_text": "וַיִּהְיוּ כָּל יְמֵי אֱנוֹשׁ חָמֵשׁ שָׁנִים וּתְשַׁע מֵאוֹת שָׁנָה, וַיָּמֹת.",
+      "source_url": "https://www.sefaria.org/Steinsaltz_on_Genesis_5:11"
+    },
+    {
+      "commentator_name": "קאסוטו",
+      "commentary_text": "חמש שנים ותשע מאות שנה. על המספר היסודי של 900 שנה נוספת כאן יחידה של 60 חודש.",
+      "source_url": "https://www.sefaria.org/Cassuto_on_Genesis,_From_Adam_to_Noah_5:11:1"
+    }
+  ]
+}
