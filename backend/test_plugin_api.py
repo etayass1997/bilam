@@ -25,6 +25,7 @@ class PluginApiTests(unittest.TestCase):
         self.assertEqual(client.post("/chat", json={}).status_code, 410)
         self.assertEqual(client.get("/api/search").status_code, 400)
         self.assertEqual(client.get("/api/parasha-stats?parasha=לא-קיימת").status_code, 400)
+        self.assertEqual(client.get("/api/parasha-stats?parasha=Chayei%20Sara").status_code, 200)
 
     def test_source_search_and_exact_count(self):
         client = app.app.test_client()
@@ -41,6 +42,9 @@ class PluginApiTests(unittest.TestCase):
             self.assertGreater(count["total_occurrences"], shown_total)
         else:
             self.assertEqual(count["total_occurrences"], shown_total)
+
+        exported = app.build_docx("בלעם", search["sources"][:1])
+        self.assertTrue(exported.getvalue().startswith(b"PK"))
 
     def test_mcp_tools(self):
         async def check():

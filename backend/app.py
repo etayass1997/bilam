@@ -7,15 +7,13 @@ from docx.oxml.ns import qn
 from docx.shared import Pt
 from flask import Flask, jsonify, request, send_file, send_from_directory
 
-from rag_engine import RAGEngine
-from text_stats import TextStats
+from corpus_reader import CATALOG, CorpusStats, corpus
 
 FRONTEND_DIR = os.path.join(os.path.dirname(__file__), "..", "frontend")
 
 app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path="")
-rag_engine = RAGEngine()
-text_stats = TextStats(rag_engine)
-PARASHOT = tuple(rag_engine.parashot())
+text_stats = CorpusStats()
+PARASHOT = tuple(CATALOG["parashot"])
 PARASHOT_SET = set(PARASHOT)
 
 
@@ -75,31 +73,15 @@ def _format_source_label(meta, include_source=True):
 
 
 def search_sources(query, n=6, parasha=None):
-    results = rag_engine.search(query, n=n, parashot=[parasha] if parasha else None)
-    documents = results["documents"][0]
-    metadatas = results["metadatas"][0]
-
-    sources = []
-    for text, meta in zip(documents, metadatas):
-        label = _format_source_label(meta)
-        sources.append({
-            "text": text,
-            "parasha": meta.get("parasha"),
-            "chapter": meta.get("chapter"),
-            "verse": meta.get("verse"),
-            "source_label": label,
-            "ref_he": meta.get("ref_he"),
-            "commentator_name": meta.get("commentator_name"),
-            "source_type": meta.get("source_type"),
-            "source_url": meta.get("source_url"),
-        })
-    return sources
+    return corpus.search(query, parasha=parasha, limit=n)["sources"]
 
 
 def selected_parasha(raw):
     if not raw:
         return None
     value = raw.strip()
+    if value in PARASHOT_SET:
+        return value
     if not value.startswith("פרשת "):
         value = f"פרשת {value}"
     return value if value in PARASHOT_SET else None
@@ -122,7 +104,7 @@ def index():
 
 @app.route("/health", methods=["GET"])
 def health():
-    return jsonify({"status": "ok", "doc_count": rag_engine.count()})
+    return jsonify({"status": "ok", "doc_count": CATALOG["documents"]})
 
 
 @app.route("/parashot", methods=["GET"])
@@ -195,7 +177,7 @@ def _set_rtl(paragraph):
     p_pr.append(bidi)
 
 
-def build_docx(question, context_groups):
+def build_docx(question, sources):
     doc = Document()
     doc.styles["Normal"].font.name = "Calibri"
     doc.styles["Normal"].font.size = Pt(12)
@@ -203,18 +185,12 @@ def build_docx(question, context_groups):
     title = doc.add_heading(question, level=1)
     _set_rtl(title)
 
-    for group in context_groups:
-        verse_p = doc.add_paragraph()
-        verse_run = verse_p.add_run(f"{group['ref_he']}: {group['verse_text_hebrew']}")
-        verse_run.bold = True
-        _set_rtl(verse_p)
-
-        for commentary in group["commentaries"]:
-            c_p = doc.add_paragraph()
-            c_run = c_p.add_run(f"{commentary['commentator_name']}: {commentary['text']}")
-            _set_rtl(c_p)
-            c_p.paragraph_format.left_indent = Pt(18)
-
+    for source in sources:
+        heading = doc.add_paragraph()
+        heading.add_run(source["source_label"]).bold = True
+        _set_rtl(heading)
+        body = doc.add_paragraph(source["text"])
+        _set_rtl(body)
         doc.add_paragraph()
 
     buffer = io.BytesIO()
@@ -234,31 +210,11 @@ def generate_docx():
         return jsonify({"error": "לא התקבלה שאלה"}), 400
 
     query = last_user_message(messages)
-    results = rag_engine.search(query, n=10)
-    documents = results["documents"][0]
-    metadatas = results["metadatas"][0]
-
-    groups = {}
-    for text, meta in zip(documents, metadatas):
-        key = (meta.get("parasha"), meta.get("chapter"), meta.get("verse"))
-        if key not in groups:
-            groups[key] = {
-                "ref_he": _format_source_label(meta, include_source=False),
-                "verse_text_hebrew": meta.get("verse_text_hebrew"),
-                "commentaries": [],
-            }
-        if meta.get("source_type") == "commentary":
-            groups[key]["commentaries"].append({
-                "commentator_name": meta.get("commentator_name"),
-                "text": text,
-            })
-
-    ordered_groups = [groups[k] for k in sorted(groups.keys())]
-
-    if not ordered_groups:
+    sources = search_sources(query, n=10)
+    if not sources:
         return jsonify({"error": "לא נמצאו מקורות רלוונטיים במאגר עבור שאלה זו"}), 404
 
-    buffer = build_docx(query, ordered_groups)
+    buffer = build_docx(query, sources)
     return send_file(
         buffer,
         mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document",

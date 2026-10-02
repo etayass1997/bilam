@@ -7,8 +7,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "dist" / "bilam-mobile-web.zip"
 BACKEND = (
-    "app.py", "server.py", "rag_engine.py", "text_stats.py",
-    "requirements.txt", "Procfile", "kb/kb_data.json.gz",
+    "app.py", "server.py", "corpus_reader.py", "requirements.txt", "Procfile",
 )
 FRONTEND = (
     "index.html", "app.js", "style.css", "manifest.json", "service-worker.js",
@@ -20,6 +19,10 @@ def main():
     files.extend(ROOT / "backend" / name for name in BACKEND)
     files.extend(ROOT / "frontend" / name for name in FRONTEND)
     files.extend(path for path in (ROOT / "frontend" / "icons").iterdir() if path.is_file())
+    files.extend(
+        path for path in (ROOT / "plugins" / "bilam-standalone").rglob("*")
+        if path.is_file() and "__pycache__" not in path.parts and path.suffix != ".pyc"
+    )
     missing = [str(path.relative_to(ROOT)) for path in files if not path.is_file()]
     if missing:
         raise SystemExit(f"Missing package files: {', '.join(missing)}")

@@ -36,6 +36,8 @@ def normalize_parasha(value, data):
     if not value:
         return None
     value = value.strip()
+    if value in data["shards"]:
+        return value
     if not value.startswith("פרשת "):
         value = "פרשת " + value
     if value not in data["shards"]:

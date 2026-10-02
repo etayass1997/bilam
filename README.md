@@ -18,7 +18,7 @@
 
 - `backend/server.py` — שרת MCP ב־Streamable HTTP בנתיב `/mcp/`, עם ארבעה כלים לקריאת המקורות.
 - `backend/app.py` — נקודות HTTP לקריאת מקורות, בדיקת תקינות, ייצוא Word ודף כניסה. נתיב `/chat` הישן מחזיר `410`.
-- `backend/rag_engine.py` ו־`backend/text_stats.py` — חיפוש BM25 וספירות דטרמיניסטיות על פסוקי התורה.
+- `backend/corpus_reader.py` — קריאה מדורגת מקובצי המאגר הדחוסים של התוסף, עם חיפוש BM25 וספירות בלי לטעון את כל המאגר לזיכרון. `backend/rag_engine.py` ו־`backend/text_stats.py` משמשים לבניית המאגר ולהשוואות בבדיקות.
 - `backend/kb/kb_data.json.gz` — מאגר 54 הפרשות. `data/` ו־`scripts/fetch_sefaria.py` משמשים לעדכון המאגר.
 - `plugins/bilam/` — חבילת התוסף: `plugin.json`, מיומנות הלימוד, אייקון ותבנית חיבור MCP.
 - `.agents/plugins/marketplace.json` — קטלוג מקומי להצגת התוסף בסביבת פיתוח תומכת.
