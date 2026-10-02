@@ -1,39 +1,22 @@
 import io
-import json
 import os
 
-import anthropic
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
 from docx.shared import Pt
 from flask import Flask, jsonify, request, send_file, send_from_directory
-from flask_cors import CORS
 
 from rag_engine import RAGEngine
-from text_stats import TOOLS, TextStats, run_tool
+from text_stats import TextStats
 
 FRONTEND_DIR = os.path.join(os.path.dirname(__file__), "..", "frontend")
 
 app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path="")
-CORS(app, origins="*")
-
 rag_engine = RAGEngine()
 text_stats = TextStats(rag_engine)
-MAX_TOOL_ROUNDS = 4
-
-SYSTEM_PROMPT = """אתה בלעם — סוכן ידע לפרשת שבוע, מבוסס על טקסט התורה והפרשנים הקלאסיים.
-המשתמשים בך הם בעיקר רבנים ואנשי תורה שמתעניינים בפלפול ובדקויות — לא רק בשליפת ציטוטים. תפקידך להיות חד, בקיא ומפולפל, לא רק "מנוע חיפוש" בתוך המקורות שסופקו.
-
-חוקי יסוד:
-- כל טענה עובדתית על תוכן הפסוק או דברי מפרש מסוים — תתבסס על "מקורות" שסופקו לך כאן ותצוטט במפורש. בכל מראה מקום חובה לכתוב את שם הפרשה, ואת מספרי הפרק והפסוק באותיות עבריות בלבד, בדיוק בסגנון התוויות שבמקורות: (פרשת בלק, פרק כ״ב, פסוק ג׳ — רש״י). לעולם אל תכתוב מספרי פרקים או פסוקים בספרות, ואל תשמיט את שם הפרשה. לפסוקי תורה עצמם כתוב "טקסט התורה" במקום שם מפרש. אל תייחס ציטוט למקור שלא הובא לך.
-- מותר ורצוי להשתמש בידע תורני כללי שלך — כדי לחשוב, להעיר, להשוות בין מפרשים, להצביע על קשיים, השמטות, סתירות או דיוקי לשון, ולענות על שאלות פלפול שדורשות הבנה כללית של הפרשה ולא רק חיפוש מילולי. כשאתה עושה זאת, הבחן בבירור בין "כך כתוב במקור X" לבין הערה/פלפול עצמאי שלך (למשל: "יש להעיר ש...", "מבחינה פרשנית אפשר לשאול...").
-- אמור "לא מצאתי מידע על כך במאגר" רק כשבאמת אינך יודע את התשובה — לא כתחליף למחשבה. אם אתה יודע את התשובה (גם אם היא לא כתובה במפורש באף אחד מהמקורות שסופקו), ענה אותה, וציין שזו ידיעה כללית ולא ציטוט ממקור.
-- לכל שאלה כמותית על טקסט הפרשה עצמו (כמה פעמים מופיעה מילה/שורש, כמה פסוקים/מילים יש בפרשה וכו') — חובה להפעיל את הכלי המתאים (count_word_in_parasha / get_parasha_stats) ולהתבסס על תוצאתו המדויקת. אל תנחש ואל תסתמך על הערכה.
-- עברית בלבד. תשובה חדה וממוקדת בעיקר הקושי או הפלפול — לא תשובה גנרית.
-
-מקורות שנמצאו לשאלה הנוכחית:
-{context}"""
+PARASHOT = tuple(rag_engine.parashot())
+PARASHOT_SET = set(PARASHOT)
 
 
 def _hebrew_number(value):
@@ -91,17 +74,16 @@ def _format_source_label(meta, include_source=True):
     return f"{label} — {commentator or 'טקסט התורה'}"
 
 
-def retrieve_context(query, n=6):
-    results = rag_engine.search(query, n=n)
+def search_sources(query, n=6, parasha=None):
+    results = rag_engine.search(query, n=n, parashot=[parasha] if parasha else None)
     documents = results["documents"][0]
     metadatas = results["metadatas"][0]
 
-    context_lines = []
     sources = []
     for text, meta in zip(documents, metadatas):
         label = _format_source_label(meta)
-        context_lines.append(f"[{label}]\n{text}")
         sources.append({
+            "text": text,
             "parasha": meta.get("parasha"),
             "chapter": meta.get("chapter"),
             "verse": meta.get("verse"),
@@ -111,7 +93,16 @@ def retrieve_context(query, n=6):
             "source_type": meta.get("source_type"),
             "source_url": meta.get("source_url"),
         })
-    return "\n\n".join(context_lines), sources
+    return sources
+
+
+def selected_parasha(raw):
+    if not raw:
+        return None
+    value = raw.strip()
+    if not value.startswith("פרשת "):
+        value = f"פרשת {value}"
+    return value if value in PARASHOT_SET else None
 
 
 def last_user_message(messages):
@@ -134,68 +125,67 @@ def health():
     return jsonify({"status": "ok", "doc_count": rag_engine.count()})
 
 
-@app.route("/chat", methods=["POST", "OPTIONS"])
-def chat():
-    if request.method == "OPTIONS":
-        return "", 204
+@app.route("/parashot", methods=["GET"])
+def parashot():
+    return jsonify({"parashot": PARASHOT})
 
-    data = request.json or {}
-    messages = data.get("messages", [])
-    api_key = data.get("api_key")
 
-    if not api_key:
-        return jsonify({"error": "חובה להזין מפתח Anthropic API"}), 400
-    if not messages:
-        return jsonify({"error": "לא התקבלה שאלה"}), 400
+@app.route("/config", methods=["GET"])
+def config():
+    return jsonify({"plugin_url": os.environ.get("PLUGIN_URL", "")})
 
-    query = last_user_message(messages)
-    context, sources = retrieve_context(query)
 
-    if not context:
-        context = "(לא נמצאו מקורות רלוונטיים במאגר עבור שאלה זו)"
-
-    system = SYSTEM_PROMPT.format(context=context)
-
+@app.route("/api/search", methods=["GET"])
+def api_search():
+    query = request.args.get("query", "").strip()
+    raw_parasha = request.args.get("parasha", "").strip()
+    if not query or len(query) > 500:
+        return jsonify({"error": "נדרשת שאילתה באורך 1 עד 500 תווים"}), 400
+    parasha = selected_parasha(raw_parasha)
+    if raw_parasha and not parasha:
+        return jsonify({"error": "פרשה לא מוכרת; השתמשו ב-/api/parashot"}), 400
     try:
-        client = anthropic.Anthropic(api_key=api_key)
-        conversation = list(messages)
-        response = None
-        for _ in range(MAX_TOOL_ROUNDS):
-            response = client.messages.create(
-                model="claude-sonnet-5",
-                max_tokens=2600,
-                thinking={"type": "disabled"},
-                system=system,
-                tools=TOOLS,
-                messages=conversation,
-            )
-            if response.stop_reason != "tool_use":
-                break
+        limit = int(request.args.get("limit", 6))
+    except ValueError:
+        return jsonify({"error": "limit חייב להיות מספר שלם"}), 400
+    if not 1 <= limit <= 10:
+        return jsonify({"error": "limit חייב להיות בין 1 ל-10"}), 400
+    sources = search_sources(query, n=limit, parasha=parasha)
+    return jsonify({"query": query, "parasha": parasha, "sources": sources, "count": len(sources)})
 
-            conversation.append({"role": "assistant", "content": response.content})
-            tool_results = []
-            for block in response.content:
-                if block.type == "tool_use":
-                    result = run_tool(text_stats, block.name, block.input)
-                    tool_results.append({
-                        "type": "tool_result",
-                        "tool_use_id": block.id,
-                        "content": json.dumps(result, ensure_ascii=False),
-                    })
-            conversation.append({"role": "user", "content": tool_results})
 
-        text_blocks = [b.text for b in response.content if b.type == "text"]
-        reply = "\n\n".join(text_blocks).strip()
-        if not reply:
-            reply = "לא הצלחתי להשלים את החישוב בזמן שהוקצב — נסה לנסח את השאלה מחדש."
-    except anthropic.AuthenticationError:
-        return jsonify({"error": "מפתח ה-API שגוי או לא תקף"}), 401
-    except Exception as exc:
-        return jsonify({"error": str(exc)}), 500
-    finally:
-        api_key = None  # never retained past this request
+@app.route("/api/parashot", methods=["GET"])
+def api_parashot():
+    return jsonify({"parashot": PARASHOT})
 
-    return jsonify({"reply": reply, "sources": sources})
+
+@app.route("/api/count-word", methods=["GET"])
+def api_count_word():
+    word = request.args.get("word", "").strip()
+    raw_parasha = request.args.get("parasha", "").strip()
+    match_type = request.args.get("match_type", "exact_word")
+    if not word or len(word) > 50:
+        return jsonify({"error": "נדרשת מילה באורך 1 עד 50 תווים"}), 400
+    if match_type not in ("exact_word", "substring"):
+        return jsonify({"error": "match_type לא מוכר"}), 400
+    parasha = selected_parasha(raw_parasha)
+    if raw_parasha and not parasha:
+        return jsonify({"error": "פרשה לא מוכרת; השתמשו ב-/api/parashot"}), 400
+    return jsonify(text_stats.count_word(word, match_type, parasha=parasha))
+
+
+@app.route("/api/parasha-stats", methods=["GET"])
+def api_parasha_stats():
+    raw_parasha = request.args.get("parasha", "").strip()
+    parasha = selected_parasha(raw_parasha)
+    if not parasha:
+        return jsonify({"error": "נדרשת פרשה מוכרת; השתמשו ב-/api/parashot"}), 400
+    return jsonify(text_stats.get_parasha_stats(parasha))
+
+
+@app.route("/chat", methods=["POST"])
+def retired_chat():
+    return jsonify({"error": "השיחה עברה ל-ChatGPT; שרת זה מספק מקורות ונתונים בלבד"}), 410
 
 
 def _set_rtl(paragraph):
@@ -278,5 +268,4 @@ def generate_docx():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5007))
-    app.run(host="0.0.0.0", port=port)
+    raise SystemExit("Run the combined service with: uvicorn server:app --host 127.0.0.1 --port 5007")

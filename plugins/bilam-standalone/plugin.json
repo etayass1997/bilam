@@ -1,0 +1,26 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "bilam-standalone",
+  "version": "0.1.0",
+  "description": "Self-contained Hebrew Torah study with the complete Bilam corpus, local source search, exact Torah counts, and Word export.",
+  "author": {"name": "Bilam"},
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "בלעם — עצמאי",
+        "shortDescription": "לימוד תורה ללא שרת",
+        "longDescription": "חיפוש במאגר מלא של פסוקי תורה ופרשנים, ספירת מילים מדויקת וייצוא מקורות למסמך Word מתוך חבילת התוסף.",
+        "developerName": "Bilam",
+        "category": "Education & Research",
+        "capabilities": ["Read"],
+        "defaultPrompt": [
+          "מה אמרה האתון לבלעם, וכיצד פירש זאת רש״י?",
+          "כמה פעמים מופיעה המילה ברכה בפרשת בלק?"
+        ],
+        "brandColor": "#C9A23F",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/icon.png"
+      }
+    }
+  }
+}

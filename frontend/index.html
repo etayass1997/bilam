@@ -1,54 +1,66 @@
-<!DOCTYPE html>
-<html dir="rtl" lang="he">
+<!doctype html>
+<html lang="he" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>בלעם — סוכן ידע לפרשת שבוע</title>
-<link rel="icon" href="icons/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
-<link rel="apple-touch-icon" href="icons/icon-180.png">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#1c1a14">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="בלעם">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1c1a14">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>בלעם — לימוד מקורות התורה</title>
+  <link rel="icon" href="icons/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="app">
-  <header class="app-header">
-    <h1>בלעם</h1>
-    <p class="subtitle">סוכן ידע לפרשת שבוע — טקסט התורה ופרשנים קלאסיים, פסוק ומקור בכל תשובה</p>
-  </header>
-
-  <section class="api-key-box" id="api-key-box">
-    <div class="api-key-saved-row" id="api-key-saved-row" hidden>
-      <span>מפתח API שמור ✓</span>
-      <button type="button" id="edit-key-btn" class="icon-btn">שינוי מפתח</button>
-    </div>
-    <div id="api-key-form">
-      <label for="api-key">מפתח Anthropic API</label>
-      <div class="api-key-row">
-        <input type="password" id="api-key" placeholder="sk-ant-...">
-        <button type="button" id="toggle-key" class="icon-btn" aria-label="הצג/הסתר מפתח">👁</button>
-        <button type="button" id="save-key" class="secondary-btn">שמור</button>
-      </div>
-      <p class="hint">המפתח שלך נשמר רק בדפדפן שלך (localStorage) ונשלח לשרת רק בזמן שאלה — הוא לא נשמר בשום שרת.</p>
-    </div>
-  </section>
-
-  <div class="chat-toolbar">
-    <button type="button" id="clear-chat-btn" class="icon-btn">🗑 מחיקת שיחה</button>
-  </div>
-
-  <section class="chat-box" id="chat-box"></section>
-
-  <form class="composer" id="composer">
-    <input type="text" id="question" placeholder='שאל על פרשת בלק, למשל: "מה אמרה האתון לבלעם?"' autocomplete="off">
-    <button type="submit" id="send-btn">שאל</button>
-  </form>
-</div>
-<script src="app.js"></script>
+  <main class="app">
+    <header class="app-header">
+      <div class="brand"><img src="icons/icon-192.png" width="52" height="52" alt=""><div><h1>בלעם</h1><p>לימוד מקורות התורה</p></div></div>
+      <button id="install-button" class="install-button" type="button" hidden>התקנה במסך הבית</button>
+    </header>
+    <nav class="tabs" aria-label="כלי לימוד">
+      <button class="tab active" type="button" data-panel="search-panel" aria-selected="true">חיפוש מקורות</button>
+      <button class="tab" type="button" data-panel="count-panel" aria-selected="false">ספירת מילה</button>
+      <button class="tab" type="button" data-panel="stats-panel" aria-selected="false">נתוני פרשה</button>
+    </nav>
+    <section id="search-panel" class="panel" aria-labelledby="search-title">
+      <h2 id="search-title">חיפוש בתורה ובמפרשים</h2>
+      <form id="search-form">
+        <label for="search-query">מה תרצו לחפש?</label>
+        <input id="search-query" name="query" type="search" placeholder="למשל: ברכת בלעם" minlength="1" maxlength="500" enterkeyhint="search" required>
+        <label for="search-parasha">פרשה</label>
+        <select id="search-parasha" name="parasha"><option value="">כל התורה</option></select>
+        <button class="primary-button" type="submit">חיפוש מקורות</button>
+      </form>
+      <div id="search-status" class="status" role="status" aria-live="polite"></div>
+      <div id="search-results" class="results"></div>
+    </section>
+    <section id="count-panel" class="panel" aria-labelledby="count-title" hidden>
+      <h2 id="count-title">ספירת מילה בפסוקי התורה</h2>
+      <form id="count-form">
+        <label for="count-word">מילה</label>
+        <input id="count-word" name="word" type="search" placeholder="למשל: בלעם" minlength="1" maxlength="50" enterkeyhint="search" required>
+        <label for="count-parasha">פרשה</label>
+        <select id="count-parasha" name="parasha"><option value="">כל התורה</option></select>
+        <label for="match-type">סוג התאמה</label>
+        <select id="match-type" name="match_type"><option value="exact_word">מילה שלמה</option><option value="substring">רצף אותיות בתוך מילה</option></select>
+        <button class="primary-button" type="submit">ספירה</button>
+      </form>
+      <div id="count-status" class="status" role="status" aria-live="polite"></div>
+      <div id="count-results" class="results"></div>
+    </section>
+    <section id="stats-panel" class="panel" aria-labelledby="stats-title" hidden>
+      <h2 id="stats-title">נתוני פרשה</h2>
+      <form id="stats-form">
+        <label for="stats-parasha">בחרו פרשה</label>
+        <select id="stats-parasha" name="parasha" required><option value="">בחירת פרשה</option></select>
+        <button class="primary-button" type="submit">הצגת נתונים</button>
+      </form>
+      <div id="stats-status" class="status" role="status" aria-live="polite"></div>
+      <div id="stats-results" class="results"></div>
+    </section>
+    <footer><p id="corpus-status">טוען את מאגר המקורות…</p><p>החיפוש והספירה דורשים חיבור לאינטרנט. הציטוטים כוללים פרשה, פרק, פסוק ומפרש.</p><a id="plugin-link" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">לשיחה על המקורות ב־ChatGPT</a></footer>
+  </main>
+  <script src="app.js" defer></script>
 </body>
 </html>

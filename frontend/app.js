@@ -1,235 +1,141 @@
-// ה-frontend מוגש ישירות ע"י ה-backend (Flask), אז הכתובת היא תמיד אותו origin
-const BACKEND_URL = "";
+const byId = (id) => document.getElementById(id);
+const number = (value) => new Intl.NumberFormat("he-IL").format(value);
 
-const STORAGE_KEY_API = "bilam_api_key";
-const STORAGE_KEY_HISTORY = "bilam_history";
-
-const chatBox = document.getElementById("chat-box");
-const composer = document.getElementById("composer");
-const questionInput = document.getElementById("question");
-const sendBtn = document.getElementById("send-btn");
-const apiKeyInput = document.getElementById("api-key");
-const saveKeyBtn = document.getElementById("save-key");
-const toggleKeyBtn = document.getElementById("toggle-key");
-const apiKeyForm = document.getElementById("api-key-form");
-const apiKeySavedRow = document.getElementById("api-key-saved-row");
-const editKeyBtn = document.getElementById("edit-key-btn");
-const clearChatBtn = document.getElementById("clear-chat-btn");
-
-let history = JSON.parse(localStorage.getItem(STORAGE_KEY_HISTORY) || "[]");
-
-function showKeySaved() {
-  apiKeyForm.hidden = true;
-  apiKeySavedRow.hidden = false;
+function element(tag, className, value) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (value !== undefined) node.textContent = String(value);
+  return node;
 }
 
-function showKeyForm() {
-  apiKeyForm.hidden = false;
-  apiKeySavedRow.hidden = true;
+function setStatus(id, message, isError = false) {
+  const node = byId(id);
+  node.textContent = message;
+  node.classList.toggle("error", isError);
 }
 
-function init() {
-  const savedKey = localStorage.getItem(STORAGE_KEY_API);
-  if (savedKey) {
-    apiKeyInput.value = savedKey;
-    showKeySaved();
-  } else {
-    showKeyForm();
+async function api(path, params = {}) {
+  const url = new URL(path, location.origin);
+  for (const [key, value] of Object.entries(params)) {
+    if (value) url.searchParams.set(key, value);
   }
-  history.forEach((entry) => renderMessage(entry.role, entry.text, entry.sources, entry.question));
-
-  // Render free tier נרדם אחרי חוסר פעילות - מתחילים להעיר אותו כבר בטעינת הדף,
-  // כדי שעד שהמשתמש ישלח שאלה השרת כבר יהיה (כמעט) ער.
-  fetch(`${BACKEND_URL}/health`).catch(() => {});
+  const response = await fetch(url, { headers: { Accept: "application/json" } });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || "הבקשה נכשלה. נסו שוב.");
+  return data;
 }
 
-saveKeyBtn.addEventListener("click", () => {
-  localStorage.setItem(STORAGE_KEY_API, apiKeyInput.value.trim());
-  saveKeyBtn.textContent = "נשמר ✓";
-  setTimeout(() => {
-    saveKeyBtn.textContent = "שמור";
-    showKeySaved();
-  }, 1500);
-});
-
-editKeyBtn.addEventListener("click", () => {
-  showKeyForm();
-});
-
-toggleKeyBtn.addEventListener("click", () => {
-  apiKeyInput.type = apiKeyInput.type === "password" ? "text" : "password";
-});
-
-clearChatBtn.addEventListener("click", () => {
-  if (!history.length) return;
-  if (!confirm("למחוק את כל השיחה? הפעולה לא ניתנת לשחזור.")) return;
-  history = [];
-  localStorage.removeItem(STORAGE_KEY_HISTORY);
-  chatBox.innerHTML = "";
-});
-
-function renderMessage(role, text, sources, question) {
-  const div = document.createElement("div");
-  div.className = `msg ${role}`;
-  div.textContent = text;
-
-  if (sources && sources.length) {
-    const sourcesDiv = document.createElement("div");
-    sourcesDiv.className = "sources";
-    const label = document.createElement("strong");
-    label.textContent = "מקורות:";
-    sourcesDiv.appendChild(label);
-    const ul = document.createElement("ul");
-    sources.forEach((s) => {
-      const li = document.createElement("li");
-      if (s.source_label) {
-        li.textContent = s.source_label;
-      } else {
-        // תאימות להודעות ישנות שנשמרו בדפדפן לפני הוספת התווית המלאה.
-        const refLabel = s.ref_he || `פרק ${s.chapter} פסוק ${s.verse}`;
-        li.textContent = s.commentator_name ? `${refLabel} — ${s.commentator_name}` : `${refLabel} — טקסט התורה`;
-      }
-      ul.appendChild(li);
-    });
-    sourcesDiv.appendChild(ul);
-    div.appendChild(sourcesDiv);
-  }
-
-  if (role === "bot" && question) {
-    const actions = document.createElement("div");
-    actions.className = "msg-actions";
-    const dlBtn = document.createElement("button");
-    dlBtn.className = "download-btn";
-    dlBtn.textContent = "הורד כ-Word";
-    dlBtn.addEventListener("click", () => downloadDocx(question));
-    actions.appendChild(dlBtn);
-    div.appendChild(actions);
-  }
-
-  chatBox.appendChild(div);
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function saveHistory() {
-  localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(history));
-}
-
-function showStatus(text) {
-  let el = document.getElementById("status-msg");
-  if (!el) {
-    el = document.createElement("div");
-    el.id = "status-msg";
-    el.className = "msg status";
-    chatBox.appendChild(el);
-  }
-  el.textContent = text;
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function clearStatus() {
-  const el = document.getElementById("status-msg");
-  if (el) el.remove();
-}
-
-// Render free tier יכול "להירדם" אחרי חוסר פעילות - ניסיון ראשון אחרי שינה
-// נכשל לעיתים (תשובה לא תקינה/שגיאת רשת) בזמן שהשרת מתעורר. מנסים שוב אוטומטית
-// במקום להציג "שגיאת תקשורת" מיידית.
-async function fetchWithWakeupRetry(url, options, retries = 2) {
-  for (let attempt = 0; attempt <= retries; attempt++) {
-    try {
-      const resp = await fetch(url, options);
-      if (!resp.ok && resp.status >= 502 && resp.status <= 504 && attempt < retries) {
-        showStatus("השרת מתעורר משינה, מנסה שוב...");
-        await new Promise((r) => setTimeout(r, 5000));
-        continue;
-      }
-      return resp;
-    } catch (e) {
-      if (attempt === retries) throw e;
-      showStatus("השרת מתעורר משינה, מנסה שוב...");
-      await new Promise((r) => setTimeout(r, 5000));
-    }
-  }
-}
-
-function getApiKey() {
-  return localStorage.getItem(STORAGE_KEY_API) || apiKeyInput.value.trim();
-}
-
-async function downloadDocx(question) {
+function safeSourceUrl(raw) {
   try {
-    const resp = await fetchWithWakeupRetry(`${BACKEND_URL}/generate-docx`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: [{ role: "user", content: question }] }),
-    });
-    clearStatus();
-    if (!resp.ok) {
-      const err = await resp.json().catch(() => ({}));
-      alert(err.error || "שגיאה ביצירת המסמך");
-      return;
-    }
-    const blob = await resp.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "bilam.docx";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  } catch (e) {
-    clearStatus();
-    alert("שגיאת תקשורת עם השרת");
-  }
+    const url = new URL(raw);
+    return ["http:", "https:"].includes(url.protocol) ? url.href : null;
+  } catch { return null; }
 }
 
-composer.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const question = questionInput.value.trim();
-  if (!question) return;
-
-  const apiKey = getApiKey();
-  if (!apiKey) {
-    renderMessage("error", "יש להזין מפתח Anthropic API לפני שליחת שאלה.");
-    return;
+function sourceCard(title, body, url) {
+  const card = element("article", "source-card");
+  card.append(element("h3", "", title), element("p", "", body));
+  const safeUrl = safeSourceUrl(url);
+  if (safeUrl) {
+    const link = element("a", "", "פתיחת המקור בספריא");
+    link.href = safeUrl;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    card.append(link);
   }
+  return card;
+}
 
-  history.push({ role: "user", text: question });
-  renderMessage("user", question);
-  saveHistory();
-  questionInput.value = "";
-  sendBtn.disabled = true;
+async function submit(form, statusId, resultsId, work) {
+  const button = form.querySelector('button[type="submit"]');
+  const results = byId(resultsId);
+  button.disabled = true;
+  results.replaceChildren();
+  setStatus(statusId, "מחפש במאגר…");
+  try { await work(results); }
+  catch (error) {
+    setStatus(statusId, error instanceof TypeError ? "לא ניתן להתחבר לשרת. בדקו את החיבור לאינטרנט ונסו שוב." : error.message, true);
+  } finally { button.disabled = false; }
+}
 
-  try {
-    const RECENT_EXCHANGES = 5; // זיכרון שיחה: שולחים למודל רק את 5 חילופי השאלה-תשובה האחרונים
-    const messages = history
-      .filter((h) => h.role === "user" || h.role === "bot")
-      .slice(-RECENT_EXCHANGES * 2)
-      .map((h) => ({ role: h.role === "bot" ? "assistant" : "user", content: h.text }));
-
-    const resp = await fetchWithWakeupRetry(`${BACKEND_URL}/chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages, api_key: apiKey }),
+document.querySelectorAll(".tab").forEach((tab) => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach((item) => {
+      const active = item === tab;
+      item.classList.toggle("active", active);
+      item.setAttribute("aria-selected", String(active));
+      byId(item.dataset.panel).hidden = !active;
     });
-    clearStatus();
-    const data = await resp.json();
-
-    if (!resp.ok) {
-      renderMessage("error", data.error || "שגיאה לא ידועה");
-      return;
-    }
-
-    history.push({ role: "bot", text: data.reply, sources: data.sources, question });
-    renderMessage("bot", data.reply, data.sources, question);
-    saveHistory();
-  } catch (e) {
-    clearStatus();
-    renderMessage("error", "שגיאת תקשורת עם השרת — נסו שוב בעוד כמה שניות (השרת עשוי להיות בתהליך התעוררות).");
-  } finally {
-    sendBtn.disabled = false;
-  }
+  });
 });
 
-init();
+byId("search-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  submit(form, "search-status", "search-results", async (results) => {
+    const data = await api("/api/search", { query: byId("search-query").value.trim(), parasha: byId("search-parasha").value, limit: "10" });
+    setStatus("search-status", data.count ? `${number(data.count)} מקורות נמצאו` : "לא נמצאו מקורות. נסו ניסוח אחר.");
+    for (const source of data.sources) results.append(sourceCard(source.source_label, source.text, source.source_url));
+  });
+});
+
+byId("count-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  submit(form, "count-status", "count-results", async (results) => {
+    const data = await api("/api/count-word", { word: byId("count-word").value.trim(), parasha: byId("count-parasha").value, match_type: byId("match-type").value });
+    setStatus("count-status", "הספירה הושלמה");
+    results.append(element("div", "summary", `${number(data.total_occurrences)} מופעים ב־${number(data.verses_count)} פסוקים`));
+    if (data.matches_truncated) results.append(element("p", "muted", "מוצגים 25 הפסוקים הראשונים בלבד; הסכום כולל את כולם."));
+    for (const match of data.matches) results.append(sourceCard(`${match.ref_he} · ${number(match.count)} מופעים`, match.verse_text));
+  });
+});
+
+byId("stats-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  submit(form, "stats-status", "stats-results", async (results) => {
+    const data = await api("/api/parasha-stats", { parasha: byId("stats-parasha").value });
+    setStatus("stats-status", data.parasha);
+    results.append(element("div", "summary", `${number(data.total_verses)} פסוקים · ${number(data.total_words)} מילים`));
+    results.append(element("p", "muted", `פרקים: ${data.chapters.map(number).join(", ")}`));
+  });
+});
+
+async function initialize() {
+  try {
+    const [portions, health] = await Promise.all([api("/api/parashot"), api("/health")]);
+    for (const id of ["search-parasha", "count-parasha", "stats-parasha"]) {
+      const select = byId(id);
+      for (const parasha of portions.parashot) {
+        const option = element("option", "", parasha);
+        option.value = parasha;
+        select.append(option);
+      }
+    }
+    byId("corpus-status").textContent = `${number(health.doc_count)} יחידות מקור זמינות לחיפוש.`;
+  } catch {
+    byId("corpus-status").textContent = "המאגר אינו זמין כרגע. בדקו את החיבור לאינטרנט.";
+  }
+  try {
+    const { plugin_url: pluginUrl } = await api("/config");
+    const url = new URL(pluginUrl);
+    if (url.protocol === "https:" && ["chatgpt.com", "www.chatgpt.com"].includes(url.hostname)) byId("plugin-link").href = url.href;
+  } catch { /* The mobile search works without a ChatGPT plugin link. */ }
+}
+initialize();
+
+if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js").catch(() => {}));
+let installPrompt;
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  installPrompt = event;
+  byId("install-button").hidden = false;
+});
+byId("install-button").addEventListener("click", async () => {
+  if (!installPrompt) return;
+  installPrompt.prompt();
+  await installPrompt.userChoice;
+  installPrompt = undefined;
+  byId("install-button").hidden = true;
+});

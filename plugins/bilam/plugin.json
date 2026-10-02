@@ -1,0 +1,25 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "bilam",
+  "version": "0.1.0",
+  "description": "Hebrew Torah portion study with sourced verses, classical commentaries, and exact text counts.",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "בלעם",
+        "shortDescription": "לימוד פרשה עם פסוקים ומפרשים",
+        "longDescription": "שאלות ופלפול על פרשות התורה בעזרת מקורות מסומנים וחישובים מדויקים על טקסט הפסוקים.",
+        "developerName": "Bilam",
+        "category": "Education & Research",
+        "capabilities": ["Read"],
+        "defaultPrompt": [
+          "מה אמרה האתון לבלעם, וכיצד פירש זאת רש״י?",
+          "כמה פעמים מופיעה המילה ברכה בפרשת בלק?"
+        ],
+        "brandColor": "#C9A23F",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/icon.png"
+      }
+    }
+  }
+}

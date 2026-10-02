@@ -65,15 +65,22 @@ class RAGEngine:
         """קוראים פעם אחת בסיום הוספת כל המסמכים (ingest), לפני save()."""
         self._rebuild()
 
-    def search(self, query, n=6):
+    def search(self, query, n=6, parashot=None):
         if not self._bm25 or not self.docs:
             return {"documents": [[]], "metadatas": [[]]}
         tokens = _tokenize(query)
         scores = self._bm25.get_scores(tokens)
-        top_idx = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:n]
+        allowed = set(parashot or [])
+        candidates = range(len(scores))
+        if allowed:
+            candidates = [i for i in candidates if self.docs[i].get("metadata", {}).get("parasha") in allowed]
+        top_idx = sorted(candidates, key=lambda i: scores[i], reverse=True)[:n]
         docs = [self.docs[i]["text"] for i in top_idx if scores[i] > 0]
         metas = [self.docs[i]["metadata"] for i in top_idx if scores[i] > 0]
         return {"documents": [docs], "metadatas": [metas]}
 
     def count(self):
         return len(self.docs)
+
+    def parashot(self):
+        return sorted({d.get("metadata", {}).get("parasha") for d in self.docs if d.get("metadata", {}).get("parasha")})
