@@ -37,7 +37,7 @@ uvicorn server:app --host 127.0.0.1 --port 5007
 
 ## פריסה וחיבור ל־ChatGPT
 
-1. פרסו את הריפו ב־Render כ־Web Service עם **Root Directory ריק** כדי שגם תיקיית `frontend` תהיה זמינה. פקודת הבנייה: `pip install -r backend/requirements.txt`. פקודת ההרצה: `cd backend && uvicorn server:app --host 0.0.0.0 --port $PORT`. הקובץ `backend/kb/kb_data.json.gz` חייב להיכלל בפריסה.
+1. פרסו את הריפו ב־Render כ־Web Service עם **Root Directory ריק** כדי שגם תיקיית `frontend` תהיה זמינה. פקודת הבנייה: `pip install -r backend/requirements.txt`. פקודת ההרצה: `cd backend && uvicorn server:app --host 0.0.0.0 --port $PORT`. קובץ `.python-version` בשורש מגדיר Python 3.12.10. הקובץ `backend/kb/kb_data.json.gz` חייב להיכלל בפריסה.
 2. הגדירו ב־Render את `PUBLIC_BASE_URL` לכתובת השירות הציבורית, למשל `https://bilam.onrender.com`. כך שרת MCP מאשר את שם המארח הנכון. אפשר להגדיר `PLUGIN_URL` לאחר יצירת קישור לתוסף, כדי שדף הבית יציג אליו קישור ישיר.
 3. לאחר שהשירות עולה, בדקו `/health` ואת `https://<service>/mcp/` ב־MCP Inspector. השתמשו בכתובת עם לוכסן סופי.
 4. הריצו משורש הפרויקט `python scripts/configure_plugin.py https://<service>`. הסקריפט ייצור `plugins/bilam/mcp.json` ו־`plugins/bilam/skills/torah-study/agents/openai.yaml` עם הכתובת האמיתית. עד אז התוסף המקומי מכיל הוראות בלבד.
